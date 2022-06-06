@@ -3,6 +3,8 @@
     "tailwindcss": "^3.0.24"
   },
   "dependencies": {
-    "daisyui": "^2.15.2"
+    "@popperjs/core": "^2.11.5",
+    "daisyui": "^2.15.2",
+    "tw-elements": "^1.0.0-alpha12"
   }
 }

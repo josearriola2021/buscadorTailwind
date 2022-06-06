@@ -2,13 +2,13 @@ import { categoria, productoCategoria } from "./dataCategorias.js";
 import { productos } from "./dataProductos.js";
 import { eventos } from "./other.js";
 
+
 const documentReady = () => {
 
     const cardsResultado = document.getElementById("cardsResultado");
     const buscadorInput = document.getElementById("buscadorInput");
     const categoriaList = document.getElementById("categoriaList");
-    const categoriaItems = document.querySelectorAll(".categoria-items");
-    const selectCategoria = document.querySelectorAll(".select-categoria");
+    const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");
 
     //Frontend de productos
     productos.forEach((element) => {
@@ -26,29 +26,90 @@ const documentReady = () => {
         <div>
         `
     })
-
     
-    //Frontend de Categorías
+    //Frontend de Categorías desktop y mobile
     categoria.forEach((element) => {
-        categoriaList.innerHTML += 
-        `
-        <div class="collapse">
-            <input type="checkbox" class="peer title-categoria"/>
-            <div class="flex justify-between collapse-title bg-white text-black peer-checked:bg-red-500 peer-checked:text-white select-categoria">
-              ${element}
-              <i class="bi bi-caret-down" id="iconDownCategoria"></i>
-              <i class="bi bi-caret-up hidden" id="iconUpCategoria"></i>
-            </div>
-            <div class="collapse-content bg-white text-black peer-checked:bg-white peer-checked:text-black">
-              <div class="form-control categoria-items">
-                
+        const ubicacionCategorias = [categoriaList, menuCategoriaMobile];
+        for (const elemento of ubicacionCategorias) {
+
+          elemento.innerHTML += 
+          `
+          <div class="collapse">
+              <input type="checkbox" class="peer title-categoria"/>
+              <div class="flex justify-between collapse-title bg-white text-black peer-checked:bg-red-500 peer-checked:text-white">
+                ${element}
+                <i class="bi bi-caret-down iconDown-categoria"></i>
+                <i class="bi bi-caret-up iconUp-categoria hidden"></i>
               </div>
-            </div>
-        </div>
-        `
+              <div class="collapse-content bg-white text-black peer-checked:bg-white peer-checked:text-black">
+                <div class="form-control categoria-items">
+                  
+                </div>
+              </div>
+          </div>
+          `;
+        }
+        
+
     })
+  
+    //Frontend Categorias - Items Desktop y mobile
+    const categoriaItems = document.querySelectorAll(".categoria-items");
+    
+    let indice = 0;
+    while (indice < 2) {
+      for (let i = 0; i < categoria.length; i++) {
+        const distribucionCategorias = productoCategoria.filter((element) => {
+          return element.tipo == categoria[i];
+        })
+      
+        if(indice == 0){
+          distribucionCategorias.forEach((element) => {
+            categoriaItems[i].innerHTML += 
+              `
+                <label class="label gap-4 justify-start cursor-pointer">
+                    <input type="checkbox" class="checkbox" />
+                    <span class="label-text">${element.nombre}</span> 
+                </label>
+            
+              `;
+          })
+        }else{
+          distribucionCategorias.forEach((element) => {
+            const nuevoi = i + categoria.length;
+            categoriaItems[nuevoi].innerHTML += 
+              `
+                <label class="label gap-4 justify-start cursor-pointer">
+                    <input type="checkbox" class="checkbox" />
+                    <span class="label-text">${element.nombre}</span> 
+                </label>
+            
+              `;
+          })
+        }
+      }
+      indice += 1
+    }
+
+        //Evento de cambios de flecha
+    const cambioFlecha = () => {
+      const titleCategoria = document.querySelectorAll(".title-categoria");
+      const iconDownCategoria = document.querySelectorAll(".iconDown-categoria");
+      const iconUpCategoria = document.querySelectorAll(".iconUp-categoria");
+        
+      for (let i = 0; i < titleCategoria.length; i++) {
+          titleCategoria[i].addEventListener("click", (e) => {
+              iconDownCategoria[i].classList.toggle("hidden");
+              iconUpCategoria[i].classList.toggle("hidden");
+          });
+      }
+    
+    }
+
+    cambioFlecha();    
 
     
+    //Buscador keyup
     const buscador = () => {
         buscadorInput.addEventListener("keyup", (e) => {
             cardsResultado.innerHTML = "";
@@ -59,7 +120,7 @@ const documentReady = () => {
                 cardsResultado.innerHTML +=
                 `
                 <div class="card bg-base-100 shadow-xl max-w-xs">
-                <figure><img src="${element.imagen}" alt="Shoes" /></figure>
+                    <figure><img src="${element.imagen}" alt="Shoes" /></figure>
                     <div class="card-body">
                       <h2 class="card-title">${element.nombre}</h2>
                       <p class="text-red-500 font-bold text-lg">S/. ${element.precio}</p>
@@ -70,11 +131,16 @@ const documentReady = () => {
                 <div>
                 `
             })
+
+            
         })
         
     }
     
     buscador();
+
+    //Ordenador keyup
+
 
 
 
@@ -82,4 +148,3 @@ const documentReady = () => {
 }
 
 document.addEventListener('DOMContentLoaded', documentReady);
-document.addEventListener('DOMContentLoaded', eventos);

@@ -34,4 +34,69 @@ export const productos = [
         imagen: "./img/aceite-primor.jpeg",
         precio: 5.5,
     },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
+    {
+        nombre: "Aceite Primor",
+        imagen: "./img/aceite-primor.jpeg",
+        precio: 5.5,
+    },
 ]

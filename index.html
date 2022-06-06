@@ -7,15 +7,17 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://kit.fontawesome.com/a3c3f326df.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="relative" id="bodyWeb">
     <header class="sticky top-0 z-10">
       <div class="navbar bg-base-100">
-        <div class="flex-1">
+        <div class="md:block hidden flex-1">
           <a class="btn btn-ghost normal-case text-xl">Tienda Virtual</a>
         </div>
-        <div class="flex-none gap-2">
-          <div class="form-control">
+        <div class="md:flex-none flex-1 justify-end gap-2">
+          <div class="form-control w-full">
             <input type="text" placeholder="Search" class="input input-bordered" id="buscadorInput" />
           </div>
           <div class="dropdown dropdown-end">
@@ -37,41 +39,84 @@
           </div>
         </div>
       </div>
-    </header>
-    <div class="flex justify-end lg:px-12 sm:px-2 px-4 py-3">
-      <select class="select select-bordered w-full max-w-xs">
-        <option disabled selected>Ordenar por</option>
-        <option>Precio alto</option>
-        <option>Precio Bajo</option>
-        <option>Nombre,creciente</option>
-        <option>Nombre,decreciente</option>
-      </select>
-    </div>
-          <!-- md:hidden sm:inline-flex -->
-    <section class="flex py-3">
-
-      <div class="md:block sm:hidden md:flex-2 lg:pl-12 sm:pl-3 pl-4" id="categoriaList">
-        <!-- <div class="collapse">
-          <input type="checkbox" class="peer" id="titleCategoria"/>
-          <div class="flex gap-12 collapse-title bg-white text-black peer-checked:bg-red-500 peer-checked:text-white">
-            Abarrotes
-            <i class="bi bi-caret-down" id="iconDownCategoria"></i>
-            <i class="bi bi-caret-up hidden" id="iconUpCategoria"></i>
-          </div>
-          <div class="collapse-content bg-white text-black peer-checked:bg-white peer-checked:text-black">
-            <div class="form-control">
-              <label class="label gap-4 justify-start cursor-pointer">
-                <input type="checkbox" class="checkbox" />
-                <span class="label-text">Arroz</span> 
-              </label>
-            </div>
-          </div>
-        </div> -->
+      <!-- Botones Categorias y Ordenar mobile -->
+      <div class="flex justify-center md:hidden">
+        <ul class="menu menu-horizontal bg-base-100 container">
+          <li class="flex-1" id="buttonCategoriaMobile">
+            <a class="container justify-center active:bg-red-600">
+              <i class="bi bi-funnel"></i>
+              <p>Categorías</p>
+            </a>
+          </li>
+          <li class="flex-1" id="buttonOrdenarMobile">
+            <a class="container justify-center active:bg-red-600">
+              <i class="bi bi-arrow-down-up"></i>
+              <p>Ordenar</p>
+            </a>
+          </li>
+        </ul>
       </div>
-      <article class="mx-auto lg:px-12 sm:px-3 px-4 grid grid-cols-2 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 gap-4 md:flex-8" id="cardsResultado">
-      </article>
-    </section>
+    </header>
 
+    <main>
+      <!-- Ordenar desktop-->
+      <div class="hidden md:flex justify-end lg:px-12 sm:px-2 px-4 py-3">
+        <select class="select select-bordered w-full max-w-xs">
+          <option disabled selected>Ordenar por</option>
+          <option>Precio alto</option>
+          <option>Precio Bajo</option>
+          <option>Nombre,creciente</option>
+          <option>Nombre,decreciente</option>
+        </select>
+      </div>
+
+      <!-- Menu Ordenar mobile -->
+      <div class="md:hidden block h-full w-4/5 absolute top-0 -left-full bg-white z-20" id="menuOrdenarMobile">
+        <div class="flex bg-red-600 text-white py-3">
+          <div class="text-lg font-semibold flex-9">
+            <p class="text-center">ORDENAR POR</p>
+          </div>
+          <div class="flex-1 cursor-pointer" id="menuOrdenarMobileIconClose"><i class="fa-solid fa-xmark text-2xl"></i></div>
+        </div>
+        <div class="bg-base-200 text-gray-500 text-xs py-3 px-4">Selecciona una opción</div>
+        <ul class="menu">
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Precio alto</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Precio bajo</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Nombre,creciente</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Nombre,decreciente</a></li>
+        </ul>
+      </div>
+
+      <!-- Menu Categoría mobile -->
+      
+      <div class="md:hidden block h-full w-4/5 absolute top-0 -left-full z-20" id="menuCategoriaMobileContainer">
+        <div class="flex bg-red-600 text-white py-3" id="menuCategoriaMobileContainer">
+          <div class="text-lg font-semibold flex-9">
+            <p class="text-center">CATEGORIAS</p>
+          </div>
+          <div class="flex-1 cursor-pointer" id="menuCategoriaMobileIconClose"><i class="fa-solid fa-xmark text-2xl"></i></div>
+          </div>
+          <div class="bg-base-200 text-gray-500 text-xs py-3 px-4">Selecciona una opción</div>
+          <div class="bg-white" id="menuCategoriaMobile"></div>
+        </div>
+      </div>
+
+      <div  class="md:hidden block h-full w-full absolute top-0 bg-white" id="sectionOpacity">
+      </div>
+
+      <!-- Seccion desktop -->
+      <section class="flex py-3 relative">
+        <!-- Categorias desktop -->
+        <div class="md:block hidden lg:pl-12 sm:pl-3 pl-4" id="categoriaList">
+        </div>
+        <!-- Productos -->
+        <article class="mx-auto lg:px-12 sm:px-3 px-4 grid grid-cols-2 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 gap-4" id="cardsResultado">
+        </article>
+      </section>
+    </main>
+
+    
     <script src="./js/main.js" type="module"></script>
+
 </body>
 </html>
