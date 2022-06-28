@@ -1,7 +1,110 @@
 import { categoria, productoCategoria } from "./dataCategorias.js";
-import { productos } from "./dataProductos.js";
+// import {productos} from "./dataProductos.js";
 import { eventos } from "./other.js";
 
+
+let productos = [
+  {
+      nombre: "Atún Florida",
+      imagen: "./img/atun-florida.jpeg",
+      precio: "5",
+  },
+  {
+      nombre: "Cerveza Corona",
+      imagen: "./img/cerveza-corona.jpeg",
+      precio: "4",
+  },
+  {
+      nombre: "Fideos Molitalia",
+      imagen: "./img/fideos-molitalia.jpeg",
+      precio: "2.5",
+  },
+  {
+      nombre: "Inka Kola",
+      imagen: "./img/gaseosa-personal-inka.jpeg",
+      precio: "2",
+  },
+  {
+      nombre: "Pasta",
+      imagen: "./img/pasta.jpeg",
+      precio: "1.5",
+  },
+  {
+      nombre: "Lejía Clorox",
+      imagen: "./img/lejia-clorox.jpeg",
+      precio: "3.2",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+  {
+      nombre: "Aceite Primor",
+      imagen: "./img/aceite-primor.jpeg",
+      precio: "5.5",
+  },
+]
 
 const documentReady = () => {
 
@@ -11,7 +114,7 @@ const documentReady = () => {
     const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");
 
     //Frontend de productos
-    productos.forEach((element) => {
+    const readProductos = () => {productos.forEach((element) => {
         cardsResultado.innerHTML += 
         `
         <div class="card bg-base-100 shadow-xl max-w-xs">
@@ -26,6 +129,7 @@ const documentReady = () => {
         <div>
         `
     })
+  }
     
     //Frontend de Categorías desktop y mobile
     categoria.forEach((element) => {
@@ -49,12 +153,13 @@ const documentReady = () => {
           </div>
           `;
         }
-        
-
     })
+
   
     //Frontend Categorias - Items Desktop y mobile
     const categoriaItems = document.querySelectorAll(".categoria-items");
+    const iconDownCategoria = document.querySelectorAll(".iconDown-categoria");
+    const iconUpCategoria = document.querySelectorAll(".iconUp-categoria");
     
     let indice = 0;
     while (indice < 2) {
@@ -94,14 +199,24 @@ const documentReady = () => {
         //Evento de cambios de flecha
     const cambioFlecha = () => {
       const titleCategoria = document.querySelectorAll(".title-categoria");
-      const iconDownCategoria = document.querySelectorAll(".iconDown-categoria");
-      const iconUpCategoria = document.querySelectorAll(".iconUp-categoria");
+      // const iconDownCategoria = document.querySelectorAll(".iconDown-categoria");
+      // const iconUpCategoria = document.querySelectorAll(".iconUp-categoria");
         
       for (let i = 0; i < titleCategoria.length; i++) {
           titleCategoria[i].addEventListener("click", (e) => {
               iconDownCategoria[i].classList.toggle("hidden");
               iconUpCategoria[i].classList.toggle("hidden");
+              
+              if (i > 0) {
+                if (iconDownCategoria[i-1].className == "bi bi-caret-down iconDown-categoria hidden") {
+                  categoriaItems[i-1].classList.toggle("hidden");
+                }
+                // if (iconDownCategoria[i].className == "bi bi-caret-down iconDown-categoria") {
+                //   categoriaItems[i].classList.toggle("hidden");
+                // }
+              }
           });
+
       }
     
     }
@@ -113,24 +228,27 @@ const documentReady = () => {
     const buscador = () => {
         buscadorInput.addEventListener("keyup", (e) => {
             cardsResultado.innerHTML = "";
-            const productosBuscados = productos.filter((element) => {
-                return element.nombre.toLowerCase().includes(e.target.value.toLowerCase());
-            })
-            productosBuscados.forEach((element) => {
-                cardsResultado.innerHTML +=
-                `
-                <div class="card bg-base-100 shadow-xl max-w-xs">
-                    <figure><img src="${element.imagen}" alt="Shoes" /></figure>
-                    <div class="card-body">
-                      <h2 class="card-title">${element.nombre}</h2>
-                      <p class="text-red-500 font-bold text-lg">S/. ${element.precio}</p>
-                      <div class="card-actions justify-end">
-                        <button class="btn btn-primary">Agregar</button>
-                      </div>
-                    </div>
-                <div>
-                `
-            })
+            productos = productos.filter((element) => {
+              return element.nombre.toLowerCase().includes(e.target.value.toLowerCase());
+            });
+
+            // productos.forEach((element) => {
+            //     cardsResultado.innerHTML +=
+            //     `
+            //     <div class="card bg-base-100 shadow-xl max-w-xs">
+            //         <figure><img src="${element.imagen}" alt="Shoes" /></figure>
+            //         <div class="card-body">
+            //           <h2 class="card-title">${element.nombre}</h2>
+            //           <p class="text-red-500 font-bold text-lg">S/. ${element.precio}</p>
+            //           <div class="card-actions justify-end">
+            //             <button class="btn btn-primary">Agregar</button>
+            //           </div>
+            //         </div>
+            //     <div>
+            //     `
+            // })
+
+            readProductos();
 
             
         })
@@ -138,13 +256,7 @@ const documentReady = () => {
     }
     
     buscador();
-
-    //Ordenador keyup
-
-
-
-
-
+    readProductos();
 }
 
 document.addEventListener('DOMContentLoaded', documentReady);

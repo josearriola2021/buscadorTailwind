@@ -79,10 +79,10 @@ export const eventos = () => {
     despliegueMobile();
     
     //Separacion
-
-    
 }
 
 eventos();
+
+
 
 
