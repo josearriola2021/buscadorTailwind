@@ -7414,6 +7414,54 @@ body[dir="rtl"] .checkbox:checked,
   height: calc(100% - 0.25rem);
 }
 
+.h-96 {
+  height: 24rem;
+}
+
+.h-20 {
+  height: 5rem;
+}
+
+.h-24 {
+  height: 6rem;
+}
+
+.h-1\/4 {
+  height: 25%;
+}
+
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-2\/3 {
+  height: 66.666667%;
+}
+
+.max-h-28 {
+  max-height: 7rem;
+}
+
+.max-h-16 {
+  max-height: 4rem;
+}
+
+.max-h-20 {
+  max-height: 5rem;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
+.max-h-80 {
+  max-height: 20rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -7456,6 +7504,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .flex-9 {
   flex: 9 9 0%;
+}
+
+.flex-none {
+  flex: none;
 }
 
 .flex-shrink {

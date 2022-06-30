@@ -1,110 +1,6 @@
 import { categoria, productoCategoria } from "./dataCategorias.js";
-// import {productos} from "./dataProductos.js";
+import {productos} from "./dataProductos.js";
 import { eventos } from "./other.js";
-
-
-let productos = [
-  {
-      nombre: "Atún Florida",
-      imagen: "./img/atun-florida.jpeg",
-      precio: "5",
-  },
-  {
-      nombre: "Cerveza Corona",
-      imagen: "./img/cerveza-corona.jpeg",
-      precio: "4",
-  },
-  {
-      nombre: "Fideos Molitalia",
-      imagen: "./img/fideos-molitalia.jpeg",
-      precio: "2.5",
-  },
-  {
-      nombre: "Inka Kola",
-      imagen: "./img/gaseosa-personal-inka.jpeg",
-      precio: "2",
-  },
-  {
-      nombre: "Pasta",
-      imagen: "./img/pasta.jpeg",
-      precio: "1.5",
-  },
-  {
-      nombre: "Lejía Clorox",
-      imagen: "./img/lejia-clorox.jpeg",
-      precio: "3.2",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-  {
-      nombre: "Aceite Primor",
-      imagen: "./img/aceite-primor.jpeg",
-      precio: "5.5",
-  },
-]
 
 const documentReady = () => {
 
@@ -114,12 +10,12 @@ const documentReady = () => {
     const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");
 
     //Frontend de productos
-    const readProductos = () => {productos.forEach((element) => {
+    const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
         cardsResultado.innerHTML += 
         `
-        <div class="card bg-base-100 shadow-xl max-w-xs">
+        <div class="card bg-base-100 shadow-xl max-w-xs" style="max-height: 400px;">
             <figure><img src="${element.imagen}" alt="${element.nombre}" /></figure>
-            <div class="card-body">
+            <div class="card-body flex-none">
               <h2 class="card-title text-base">${element.nombre}</h2>
               <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
               <div class="card-actions justify-end">
@@ -173,8 +69,8 @@ const documentReady = () => {
             categoriaItems[i].innerHTML += 
               `
                 <label class="label gap-4 justify-start cursor-pointer">
-                    <input type="checkbox" class="checkbox" />
-                    <span class="label-text">${element.nombre}</span> 
+                    <input type="checkbox" class="checkbox input-itemCategoria 1" />
+                    <span class="label-text span__label-itemCategoria 1">${element.nombre}</span> 
                 </label>
             
               `;
@@ -185,8 +81,8 @@ const documentReady = () => {
             categoriaItems[nuevoi].innerHTML += 
               `
                 <label class="label gap-4 justify-start cursor-pointer">
-                    <input type="checkbox" class="checkbox" />
-                    <span class="label-text">${element.nombre}</span> 
+                    <input type="checkbox" class="checkbox input-itemCategoria 2" />
+                    <span class="label-text span__label-itemCategoria 2">${element.nombre}</span> 
                 </label>
             
               `;
@@ -195,6 +91,59 @@ const documentReady = () => {
       }
       indice += 1
     }
+
+    const filtrarPorItemCategoria = () => {
+      const spanLabelItemCategoria = document.querySelectorAll(".span__label-itemCategoria");
+      const inputItemCategoria = document.querySelectorAll(".input-itemCategoria");
+
+      for (let i = 0; i < 2*productoCategoria.length; i++) {
+        inputItemCategoria[i].addEventListener("click", () => {
+
+          const arrayContenidoSpanActive = [];
+          spanLabelItemCategoria[i].classList.toggle("active");
+
+          const spanActive = document.querySelectorAll(".active");
+
+          console.log(spanActive);
+
+          for (let i = 0; i < spanActive.length; i++) {
+            arrayContenidoSpanActive.push(spanActive[i].innerHTML);
+          }
+
+          console.log(arrayContenidoSpanActive);
+
+          const resultadoFiltroCategoria = [];
+          
+          for (let i = 0; i < spanActive.length; i++) {
+            const filtroCategoria = productos.filter((element) => {
+              return element.itemcategoria.toLowerCase().includes(arrayContenidoSpanActive[i].toLowerCase());
+            })
+            console.log(filtroCategoria);
+
+            filtroCategoria.forEach((element) => {
+              resultadoFiltroCategoria.push(element);
+            })
+          }
+
+          console.log(resultadoFiltroCategoria);
+
+          // cardsResultado.innerHTML="";
+          // readProductos(resultadoFiltroCategoria);
+
+          if (arrayContenidoSpanActive.length == 0) {
+            cardsResultado.innerHTML = "";
+            readProductos(productos);            
+          }else{
+            cardsResultado.innerHTML = "";
+            readProductos(resultadoFiltroCategoria); 
+          }
+          
+        })
+      }
+    }
+
+    filtrarPorItemCategoria();
+
 
         //Evento de cambios de flecha
     const cambioFlecha = () => {
@@ -207,56 +156,44 @@ const documentReady = () => {
               iconDownCategoria[i].classList.toggle("hidden");
               iconUpCategoria[i].classList.toggle("hidden");
               
-              if (i > 0) {
-                if (iconDownCategoria[i-1].className == "bi bi-caret-down iconDown-categoria hidden") {
-                  categoriaItems[i-1].classList.toggle("hidden");
-                }
-                // if (iconDownCategoria[i].className == "bi bi-caret-down iconDown-categoria") {
-                //   categoriaItems[i].classList.toggle("hidden");
-                // }
-              }
-          });
+              // if (i > 0) {
+              //   if (iconDownCategoria[i-1].className == "bi bi-caret-down iconDown-categoria hidden") {
+              //     categoriaItems[i-1].classList.add("hidden");
+              //   }
+          //       // if (iconDownCategoria[i].className == "bi bi-caret-down iconDown-categoria") {
+          //       //   categoriaItems[i].classList.toggle("hidden");
+          //       // }
+          //     }
+          // });
 
-      }
+      })
     
     }
+  }
 
     cambioFlecha();    
 
-    
     //Buscador keyup
     const buscador = () => {
         buscadorInput.addEventListener("keyup", (e) => {
             cardsResultado.innerHTML = "";
-            productos = productos.filter((element) => {
+            const productosBuscados = productos.filter((element) => {
               return element.nombre.toLowerCase().includes(e.target.value.toLowerCase());
             });
 
-            // productos.forEach((element) => {
-            //     cardsResultado.innerHTML +=
-            //     `
-            //     <div class="card bg-base-100 shadow-xl max-w-xs">
-            //         <figure><img src="${element.imagen}" alt="Shoes" /></figure>
-            //         <div class="card-body">
-            //           <h2 class="card-title">${element.nombre}</h2>
-            //           <p class="text-red-500 font-bold text-lg">S/. ${element.precio}</p>
-            //           <div class="card-actions justify-end">
-            //             <button class="btn btn-primary">Agregar</button>
-            //           </div>
-            //         </div>
-            //     <div>
-            //     `
-            // })
-
-            readProductos();
-
-            
+            if (productos == "") {
+              readProductos(productos);
+            }else{
+              readProductos(productosBuscados);
+            }
         })
         
     }
     
     buscador();
-    readProductos();
+
+    //Carga el frontend del array productos
+    readProductos(productos)
 }
 
 document.addEventListener('DOMContentLoaded', documentReady);
