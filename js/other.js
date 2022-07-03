@@ -59,8 +59,6 @@ export const eventos = () => {
 
         const cerrarMenuCategoria = () => {
             const menuCategoriaMobileIconClose = document.getElementById("menuCategoriaMobileIconClose");
-            console.log(menuCategoriaMobileIconClose);
-            console.log(menuOrdenarMobile);
 
             menuCategoriaMobileIconClose.addEventListener("click", () => {
                 menuCategoriaMobileContainer.classList.add("-left-full");
