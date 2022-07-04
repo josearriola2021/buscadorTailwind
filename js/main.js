@@ -126,13 +126,11 @@ const documentReady = () => {
 
           const spanActive = document.querySelectorAll(".active");
 
-          console.log(spanActive);
 
           for (let i = 0; i < spanActive.length; i++) {
             arrayContenidoSpanActive.push(spanActive[i].innerHTML);
           }
 
-          console.log(arrayContenidoSpanActive);
 
           const resultadoFiltroCategoria = []; //Acumula los objetos que coincidan con el filtrado
           
@@ -178,9 +176,24 @@ const documentReady = () => {
               //Limpia los active
               for (let i = 0; i < 2*productoCategoria.length; i++) {
                 spanLabelItemCategoria[i].classList.remove("active");
+
               }              
             }
-  
+
+            if (accion[0].className.includes("limpiar")) {
+              for (let i = 0; i < 2*productoCategoria.length; i++) {
+                inputItemCategoria[i].checked = false;
+              }
+            }
+
+            //Limpia los active, para volver a seleccioanr
+            if (accion[0].className.includes("limpiar")) {
+              for (let i = 0; i < 2*productoCategoria.length; i++) {
+                spanLabelItemCategoria[i].classList.remove("active");               
+              }              
+            }
+
+              
             if (i >= categoria.length) {
               for (const element of itemsSeleccionados) {
                 for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
@@ -212,8 +225,6 @@ const documentReady = () => {
             cardsResultado.innerHTML = "";
             readProductos(productos);
           })   
-  
-          
         }
       }
 
@@ -250,6 +261,7 @@ const documentReady = () => {
       }
 
       funcionSeleccionarTodo(seleccionarTodo, true);
+      funcionLimpiar(limpiar, false);
 
       //Logica para filtro de seleccionar todo
       // for (let i = 0; i < seleccionarTodo.length; i++) {
@@ -316,7 +328,6 @@ const documentReady = () => {
       //   })
       // }
 
-      funcionLimpiar(limpiar, false);
 
       //Logica para desactivar checked y volver a su estado original cuando limpias
       // for (let i = 0; i < seleccionarTodo.length; i++) {
