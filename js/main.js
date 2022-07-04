@@ -1,6 +1,6 @@
 import { categoria, productoCategoria } from "./dataCategorias.js";
 import {productos} from "./dataProductos.js";
-import { eventos } from "./other.js";
+import { eventos, filtrarPorItemCategoria } from "./other.js";
 
 const documentReady = () => {
 
@@ -25,7 +25,7 @@ const documentReady = () => {
         <div>
         `
     })
-  }
+    }
     
     //Frontend de Categorías desktop y mobile
     categoria.forEach((element) => {
@@ -96,285 +96,280 @@ const documentReady = () => {
       indice += 1
     }
 
-    //Logica para filtrar por categorias
-    const inputItemCategoria = document.querySelectorAll(".input-itemCategoria");
-    const spanLabelItemCategoria = document.querySelectorAll(".span__label-itemCategoria");
+    // //Logica para filtrar por categorias
+    // const inputItemCategoria = document.querySelectorAll(".input-itemCategoria");
+    // const spanLabelItemCategoria = document.querySelectorAll(".span__label-itemCategoria");
 
-    const filtrarPorItemCategoria = () => {
+    // const filtrarPorItemCategoria = () => {
 
-      //Logica por filtro independiente
-      for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //   //Logica por filtro independiente
+    //   for (let i = 0; i < 2*productoCategoria.length; i++) {
 
-        inputItemCategoria[i].addEventListener("click", () => {
+    //     inputItemCategoria[i].addEventListener("click", () => {
 
-          //Cada vez que selecciono un item se cierra la seccion categorías
-          setTimeout(() => {
-            if (i < productoCategoria.length) {
-              const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
-              menuCategoriaMobileContainer.classList.add("-left-full");
-              menuCategoriaMobileContainer.classList.remove("animate-despliegueAbrir");
-              menuCategoriaMobileContainer.classList.add("animate-despliegueCerrar");
-              bodyWeb.classList.remove("overflow-hidden");
-              sectionOpacity.classList.remove("z-10");
-              sectionOpacity.classList.remove("opacity-40");
-            }
-          },400);
-          //
+    //       //Cada vez que selecciono un item se cierra la seccion categorías
+    //       setTimeout(() => {
+    //         if (i < productoCategoria.length) {
+    //           const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
+    //           menuCategoriaMobileContainer.classList.add("-left-full");
+    //           menuCategoriaMobileContainer.classList.remove("animate-despliegueAbrir");
+    //           menuCategoriaMobileContainer.classList.add("animate-despliegueCerrar");
+    //           bodyWeb.classList.remove("overflow-hidden");
+    //           sectionOpacity.classList.remove("z-10");
+    //           sectionOpacity.classList.remove("opacity-40");
+    //         }
+    //       },400);
+    //       //
 
-          let arrayContenidoSpanActive = []; //Guarda el innerHTML de las clases active
-          spanLabelItemCategoria[i].classList.toggle("active");
+    //       let arrayContenidoSpanActive = []; //Guarda el innerHTML de las clases active
+    //       spanLabelItemCategoria[i].classList.toggle("active");
 
-          const spanActive = document.querySelectorAll(".active");
-
-
-          for (let i = 0; i < spanActive.length; i++) {
-            arrayContenidoSpanActive.push(spanActive[i].innerHTML);
-          }
+    //       const spanActive = document.querySelectorAll(".active");
 
 
-          const resultadoFiltroCategoria = []; //Acumula los objetos que coincidan con el filtrado
+    //       for (let i = 0; i < spanActive.length; i++) {
+    //         arrayContenidoSpanActive.push(spanActive[i].innerHTML);
+    //       }
+
+
+    //       const resultadoFiltroCategoria = []; //Acumula los objetos que coincidan con el filtrado
           
-          for (let i = 0; i < spanActive.length; i++) {
-            const filtroCategoria = productos.filter((element) => {
-              return element.itemcategoria.toLowerCase().includes(arrayContenidoSpanActive[i].toLowerCase());
-            })
+    //       for (let i = 0; i < spanActive.length; i++) {
+    //         const filtroCategoria = productos.filter((element) => {
+    //           return element.itemcategoria.toLowerCase().includes(arrayContenidoSpanActive[i].toLowerCase());
+    //         })
 
-            filtroCategoria.forEach((element) => {
-              resultadoFiltroCategoria.push(element);
-            })
-          }
+    //         filtroCategoria.forEach((element) => {
+    //           resultadoFiltroCategoria.push(element);
+    //         })
+    //       }
 
-          if (arrayContenidoSpanActive.length == 0) {
-            cardsResultado.innerHTML = "";
-            readProductos(productos);            
-          }else{
-            cardsResultado.innerHTML = "";
-            readProductos(resultadoFiltroCategoria); 
-          }
+    //       if (arrayContenidoSpanActive.length == 0) {
+    //         cardsResultado.innerHTML = "";
+    //         readProductos(productos);            
+    //       }else{
+    //         cardsResultado.innerHTML = "";
+    //         readProductos(resultadoFiltroCategoria); 
+    //       }
           
-        })
-      }
+    //     })
+    //   }
 
-      const seleccionarTodo = document.querySelectorAll(".seleccionar-todo");
-      const limpiar = document.querySelectorAll(".limpiar");
-      const collapseTitleCategoria = document.querySelectorAll(".collapse-title__categoria");
+    //   const seleccionarTodo = document.querySelectorAll(".seleccionar-todo");
+    //   const limpiar = document.querySelectorAll(".limpiar");
+    //   const collapseTitleCategoria = document.querySelectorAll(".collapse-title__categoria");
 
-      const funcionLimpiar = (accion, estado) => {
+    //   const funcionLimpiar = (accion, estado) => {
                 
-        for (let i = 0; i < seleccionarTodo.length; i++) {
-          accion[i].addEventListener("click", () => {
-            const itemsSeleccionados = productoCategoria.filter((element) => {
-              return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-            }) 
+    //     for (let i = 0; i < seleccionarTodo.length; i++) {
+    //       accion[i].addEventListener("click", () => {
+    //         const itemsSeleccionados = productoCategoria.filter((element) => {
+    //           return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
+    //         }) 
 
-            if (accion[0].className.includes("seleccionar-todo")) {
-              //Limpia los checked                    
-              for (let i = 0; i < 2*productoCategoria.length; i++) {
-                inputItemCategoria[i].checked = false;
-              }
+    //         if (accion[0].className.includes("seleccionar-todo")) {
+    //           //Limpia los checked                    
+    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //             inputItemCategoria[i].checked = false;
+    //           }
             
-              //Limpia los active
-              for (let i = 0; i < 2*productoCategoria.length; i++) {
-                spanLabelItemCategoria[i].classList.remove("active");
+    //           //Limpia los active
+    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //             spanLabelItemCategoria[i].classList.remove("active");
 
-              }              
-            }
+    //           }              
+    //         }
 
-            if (accion[0].className.includes("limpiar")) {
-              for (let i = 0; i < 2*productoCategoria.length; i++) {
-                inputItemCategoria[i].checked = false;
-              }
-            }
+    //         if (accion[0].className.includes("limpiar")) {
+    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //             inputItemCategoria[i].checked = false;
+    //           }
+    //         }
 
-            //Limpia los active, para volver a seleccioanr
-            if (accion[0].className.includes("limpiar")) {
-              for (let i = 0; i < 2*productoCategoria.length; i++) {
-                spanLabelItemCategoria[i].classList.remove("active");               
-              }              
-            }
+    //         //Limpia los active, para volver a seleccioanr
+    //         if (accion[0].className.includes("limpiar")) {
+    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //             spanLabelItemCategoria[i].classList.remove("active");               
+    //           }              
+    //         }
 
               
-            if (i >= categoria.length) {
-              for (const element of itemsSeleccionados) {
-                for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
-                  if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-                    inputItemCategoria[i].checked = estado;
-                    if(accion[0].className.includes("seleccionar-todo")){
-                      spanLabelItemCategoria[i].classList.add("active");
-                    }else{
-                      spanLabelItemCategoria[i].classList.remove("active");
-                    }
-                  }
-                }
-              }
-            }else{
-              for (const element of itemsSeleccionados) {
-                for (let i = 0; i < productoCategoria.length; i++) {
-                  if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-                    inputItemCategoria[i].checked = estado;
-                    if(accion[0].className.includes("seleccionar-todo")){
-                      spanLabelItemCategoria[i].classList.add("active");
-                    }else{
-                      spanLabelItemCategoria[i].classList.remove("active");
-                    }
-                  }
-                }
-              }
-            }
+    //         if (i >= categoria.length) {
+    //           for (const element of itemsSeleccionados) {
+    //             for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
+    //               if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
+    //                 inputItemCategoria[i].checked = estado;
+    //                 if(accion[0].className.includes("seleccionar-todo")){
+    //                   spanLabelItemCategoria[i].classList.add("active");
+    //                 }else{
+    //                   spanLabelItemCategoria[i].classList.remove("active");
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }else{
+    //           for (const element of itemsSeleccionados) {
+    //             for (let i = 0; i < productoCategoria.length; i++) {
+    //               if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
+    //                 inputItemCategoria[i].checked = estado;
+    //                 if(accion[0].className.includes("seleccionar-todo")){
+    //                   spanLabelItemCategoria[i].classList.add("active");
+    //                 }else{
+    //                   spanLabelItemCategoria[i].classList.remove("active");
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
   
-            cardsResultado.innerHTML = "";
-            readProductos(productos);
-          })   
-        }
-      }
+    //         cardsResultado.innerHTML = "";
+    //         readProductos(productos);
+    //       })   
+    //     }
+    //   }
 
-      const funcionSeleccionarTodo = (accion, estado) => {
+    //   const funcionSeleccionarTodo = (accion, estado) => {
 
-        // for (let i = 0; i < 2*collapseTitleCategoria.length; i++) {
-        //   console.log(accion);
-        //   accion[i].addEventListener("click", () => {
-        //     //Limpia los checked                    
-        //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-        //       inputItemCategoria[i].checked = false;
-        //     }
+    //     // for (let i = 0; i < 2*collapseTitleCategoria.length; i++) {
+    //     //   console.log(accion);
+    //     //   accion[i].addEventListener("click", () => {
+    //     //     //Limpia los checked                    
+    //     //     for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //     //       inputItemCategoria[i].checked = false;
+    //     //     }
           
-        //     //Limpia los active
-        //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-        //       spanLabelItemCategoria[i].classList.remove("active");
-        //     }
+    //     //     //Limpia los active
+    //     //     for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //     //       spanLabelItemCategoria[i].classList.remove("active");
+    //     //     }
 
-        //   })
-        //   console.log("Hola mundos");
-        // }
+    //     //   })
+    //     //   console.log("Hola mundos");
+    //     // }
 
-        funcionLimpiar(accion, estado);
+    //     funcionLimpiar(accion, estado);
         
-        for (let i = 0; i < seleccionarTodo.length; i++) {
-          accion[i].addEventListener("click", () => {
-            const resultadoSeleccionarTodo = productos.filter((element) => {
-              return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-            }) 
-            cardsResultado.innerHTML="";
-            readProductos(resultadoSeleccionarTodo);
-          })
-        }
-      }
+    //     for (let i = 0; i < seleccionarTodo.length; i++) {
+    //       accion[i].addEventListener("click", () => {
+    //         const resultadoSeleccionarTodo = productos.filter((element) => {
+    //           return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
+    //         }) 
+    //         cardsResultado.innerHTML="";
+    //         readProductos(resultadoSeleccionarTodo);
+    //       })
+    //     }
+    //   }
 
-      funcionSeleccionarTodo(seleccionarTodo, true);
-      funcionLimpiar(limpiar, false);
-
-      //Logica para filtro de seleccionar todo
-      // for (let i = 0; i < seleccionarTodo.length; i++) {
-      //   seleccionarTodo[i].addEventListener("click", () => {
-      //     const resultadoSeleccionarTodo = productos.filter((element) => {
-      //       return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-      //     })
-
-      //     //Limpia los checked                    
-      //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-      //       inputItemCategoria[i].checked = false;
-      //     }
-
-      //     //Limpia los active
-      //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-      //       spanLabelItemCategoria[i].classList.remove("active");
-      //     }
-
-
-
-      //     //Cada vez que selecciono un item se cierra la seccion categorías
-      //       setTimeout(() => {
-      //         if (i < categoria.length) {
-      //           const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
-      //           menuCategoriaMobileContainer.classList.add("-left-full");
-      //           menuCategoriaMobileContainer.classList.remove("animate-despliegueAbrir");
-      //           menuCategoriaMobileContainer.classList.add("animate-despliegueCerrar");
-      //           bodyWeb.classList.remove("overflow-hidden");
-      //           sectionOpacity.classList.remove("z-10");
-      //           sectionOpacity.classList.remove("opacity-40");
-      //         }
-      //       },400);
-
-      //     //
-
-      //     //Checked de los inputs
-
-      //     const itemsSeleccionarTodo = productoCategoria.filter((element) => {
-      //       return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-      //     })
-
-      //     if (i >= categoria.length) {
-      //       for (const element of itemsSeleccionarTodo) {
-      //         for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
-      //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-      //             inputItemCategoria[i].checked = true;
-      //             spanLabelItemCategoria[i].classList.add("active");
-      //           }
-      //         }
-      //       }
-      //     }else{
-      //       for (const element of itemsSeleccionarTodo) {
-      //         for (let i = 0; i < productoCategoria.length; i++) {
-      //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-      //             inputItemCategoria[i].checked = true;
-      //             spanLabelItemCategoria[i].classList.toggle("active");
-      //           }
-      //         }
-      //       }
-      //     }
-          
-      //     cardsResultado.innerHTML="";
-      //     readProductos(resultadoSeleccionarTodo);
-      //   })
-      // }
-
-
-      //Logica para desactivar checked y volver a su estado original cuando limpias
-      // for (let i = 0; i < seleccionarTodo.length; i++) {
-      //   limpiar[i].addEventListener("click", () => {
-      //     const itemsLimpiar = productoCategoria.filter((element) => {
-      //       return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-      //     }) 
-
-      //     if (i >= categoria.length) {
-      //       for (const element of itemsLimpiar) {
-      //         for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
-      //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-      //             inputItemCategoria[i].checked = false;
-      //             spanLabelItemCategoria[i].classList.remove("active");
-      //           }
-      //         }
-      //       }
-      //     }else{
-      //       for (const element of itemsLimpiar) {
-      //         for (let i = 0; i < productoCategoria.length; i++) {
-      //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-      //             inputItemCategoria[i].checked = false;
-      //             spanLabelItemCategoria[i].classList.remove("active");
-      //           }
-      //         }
-      //       }
-      //     }
-
-      //     cardsResultado.innerHTML = "";
-      //     readProductos(productos);
-      //   })   
-
-        
-      // }
-    }
 
     filtrarPorItemCategoria();
+    
+    //   //Logica para filtro de seleccionar todo
+    //   // for (let i = 0; i < seleccionarTodo.length; i++) {
+    //   //   seleccionarTodo[i].addEventListener("click", () => {
+    //   //     const resultadoSeleccionarTodo = productos.filter((element) => {
+    //   //       return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
+    //   //     })
 
-    const ordenar = () => {
-      console.log("Hola mundo");
-    }
+    //   //     //Limpia los checked                    
+    //   //     for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //   //       inputItemCategoria[i].checked = false;
+    //   //     }
 
-    ordenar();
+    //   //     //Limpia los active
+    //   //     for (let i = 0; i < 2*productoCategoria.length; i++) {
+    //   //       spanLabelItemCategoria[i].classList.remove("active");
+    //   //     }
+
+
+
+    //   //     //Cada vez que selecciono un item se cierra la seccion categorías
+    //   //       setTimeout(() => {
+    //   //         if (i < categoria.length) {
+    //   //           const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
+    //   //           menuCategoriaMobileContainer.classList.add("-left-full");
+    //   //           menuCategoriaMobileContainer.classList.remove("animate-despliegueAbrir");
+    //   //           menuCategoriaMobileContainer.classList.add("animate-despliegueCerrar");
+    //   //           bodyWeb.classList.remove("overflow-hidden");
+    //   //           sectionOpacity.classList.remove("z-10");
+    //   //           sectionOpacity.classList.remove("opacity-40");
+    //   //         }
+    //   //       },400);
+
+    //   //     //
+
+    //   //     //Checked de los inputs
+
+    //   //     const itemsSeleccionarTodo = productoCategoria.filter((element) => {
+    //   //       return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
+    //   //     })
+
+    //   //     if (i >= categoria.length) {
+    //   //       for (const element of itemsSeleccionarTodo) {
+    //   //         for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
+    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
+    //   //             inputItemCategoria[i].checked = true;
+    //   //             spanLabelItemCategoria[i].classList.add("active");
+    //   //           }
+    //   //         }
+    //   //       }
+    //   //     }else{
+    //   //       for (const element of itemsSeleccionarTodo) {
+    //   //         for (let i = 0; i < productoCategoria.length; i++) {
+    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
+    //   //             inputItemCategoria[i].checked = true;
+    //   //             spanLabelItemCategoria[i].classList.toggle("active");
+    //   //           }
+    //   //         }
+    //   //       }
+    //   //     }
+          
+    //   //     cardsResultado.innerHTML="";
+    //   //     readProductos(resultadoSeleccionarTodo);
+    //   //   })
+    //   // }
+
+
+    //   //Logica para desactivar checked y volver a su estado original cuando limpias
+    //   // for (let i = 0; i < seleccionarTodo.length; i++) {
+    //   //   limpiar[i].addEventListener("click", () => {
+    //   //     const itemsLimpiar = productoCategoria.filter((element) => {
+    //   //       return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
+    //   //     }) 
+
+    //   //     if (i >= categoria.length) {
+    //   //       for (const element of itemsLimpiar) {
+    //   //         for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
+    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
+    //   //             inputItemCategoria[i].checked = false;
+    //   //             spanLabelItemCategoria[i].classList.remove("active");
+    //   //           }
+    //   //         }
+    //   //       }
+    //   //     }else{
+    //   //       for (const element of itemsLimpiar) {
+    //   //         for (let i = 0; i < productoCategoria.length; i++) {
+    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
+    //   //             inputItemCategoria[i].checked = false;
+    //   //             spanLabelItemCategoria[i].classList.remove("active");
+    //   //           }
+    //   //         }
+    //   //       }
+    //   //     }
+
+    //   //     cardsResultado.innerHTML = "";
+    //   //     readProductos(productos);
+    //   //   })   
+
+        
+    //   // }
+    // }
+
+    // filtrarPorItemCategoria();
 
 
         //Evento de cambios de flecha
-    const cambioFlecha = () => {
+    
+        const cambioFlecha = () => {
       const inputTitleCategoria = document.querySelectorAll(".inputtitle-categoria");
       // const iconDownCategoria = document.querySelectorAll(".iconDown-categoria");
       // const iconUpCategoria = document.querySelectorAll(".iconUp-categoria");
