@@ -1,6 +1,7 @@
 import { categoria, productoCategoria } from "./dataCategorias.js";
 import {productos} from "./dataProductos.js";
 import { eventos, filtrarPorItemCategoria } from "./other.js";
+import { contadorProductos } from "./other.js";
 
 const documentReady = () => {
 
@@ -18,15 +19,29 @@ const documentReady = () => {
             <div class="card-body flex-none">
               <h2 class="card-title text-base">${element.nombre}</h2>
               <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
-              <div class="card-actions justify-end">
+              <div class="card-actions justify-end agregar-button">
                 <button class="md:scale-90 btn text-sm btn-primary">Agregar</button>
+              </div>
+              <div class="form-control hidden cantidad-productosagregados">
+                <label>
+                  <span class="cursor-pointer border-2 border-black delete-product" style = "border-radius: 50%; padding: 6px"><i class="bi bi-trash3"></i></span>
+                  <span class="cursor-pointer hidden minus-product"><i class="bi bi-dash-circle text-2xl"></i></span>
+                  <input type="text" value="1" class="input input-bordered cantidadproductos-input" style="width: 70px" />
+                  <span class="cursor-pointer add-product"><i class="bi bi-plus-circle text-2xl"></i></span>
+                </label>
               </div>
             </div>
         <div>
         `
     })
     }
+
+    //Carga el frontend del array productos
+    readProductos(productos)
     
+    //Contador de productos
+    contadorProductos();
+
     //Frontend de Categorías desktop y mobile
     categoria.forEach((element) => {
         const ubicacionCategorias = [categoriaList, menuCategoriaMobile];
@@ -329,7 +344,7 @@ const documentReady = () => {
     //   // }
 
 
-    //   //Logica para desactivar checked y volver a su estado original cuando limpias
+    //   //Logica para desacti   checked y volver a su estado original cuando limpias
     //   // for (let i = 0; i < seleccionarTodo.length; i++) {
     //   //   limpiar[i].addEventListener("click", () => {
     //   //     const itemsLimpiar = productoCategoria.filter((element) => {
@@ -421,8 +436,7 @@ const documentReady = () => {
     
     buscador();
 
-    //Carga el frontend del array productos
-    readProductos(productos)
+    
 }
 
 document.addEventListener('DOMContentLoaded', documentReady);

@@ -107,6 +107,8 @@ export const filtrarPorItemCategoria = () => {
     const inputItemCategoria = document.querySelectorAll(".input-itemCategoria");
     const spanLabelItemCategoria = document.querySelectorAll(".span__label-itemCategoria");
     var activeFinal = document.querySelectorAll(".active");
+    const ordenarPor = document.getElementById("ordenarPor");
+    const ordenarPorMobile = document.querySelectorAll(".ordenarPorMobile");
 
     //Logica por filtro independiente
     for (let i = 0; i < 2*productoCategoria.length; i++) {
@@ -157,6 +159,8 @@ export const filtrarPorItemCategoria = () => {
           cardsResultado.innerHTML = "";
           readProductos(resultadoFiltroCategoria); 
         }
+
+        ordenarPor.selectedIndex = 0;
 
         activeFinal = document.querySelectorAll(".active");     
         console.log(activeFinal);
@@ -232,6 +236,8 @@ export const filtrarPorItemCategoria = () => {
             }
           }
 
+          ordenarPor.selectedIndex = 0;
+
           activeFinal = document.querySelectorAll(".active");
           console.log(activeFinal);
 
@@ -251,6 +257,8 @@ export const filtrarPorItemCategoria = () => {
           const resultadoSeleccionarTodo = productos.filter((element) => {
             return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
           }) 
+
+          ordenarPor.selectedIndex = 0;
           cardsResultado.innerHTML="";
           readProductos(resultadoSeleccionarTodo);
         })
@@ -262,11 +270,7 @@ export const filtrarPorItemCategoria = () => {
     funcionLimpiar(limpiar, false);
     // ordenarPor()
 
-    const ordenarPor = document.getElementById("ordenarPor");
-
     ordenarPor.onchange = function() {
-
-        console.log("Hola mundo 1");
 
         let a = 0;
         
@@ -278,92 +282,84 @@ export const filtrarPorItemCategoria = () => {
 
         console.log(a);
 
-        const resultadoOrdenarPrecioAlto = [];
+        const resultadoOrdenar = [];
 
         if (a > 0) {
             switch (ordenarPor.selectedIndex) {
                 case 1:
                     for (let i = 0; i < activeFinal.length; i++) {
-                        const ordenarPrecioAlto = productos.filter((element) => {
+                        const productosSeleccionadosOrdenar = productos.filter((element) => {
                             return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
                         });
 
-                    ordenarPrecioAlto.forEach((element) => {
-                        resultadoOrdenarPrecioAlto.push(element);
+                    productosSeleccionadosOrdenar.forEach((element) => {
+                        resultadoOrdenar.push(element);
                       })
-
-                    console.log(ordenarPrecioAlto);
                     
-                    resultadoOrdenarPrecioAlto.sort((a, b) => {
+                    resultadoOrdenar.sort((a, b) => {
                         return a.precio - b.precio;
                     })
 
                     cardsResultado.innerHTML ="";
 
-                    readProductos(resultadoOrdenarPrecioAlto);
+                    readProductos(resultadoOrdenar);
                     }                                        
                     break;
                 case 2:
                     for (let i = 0; i < activeFinal.length; i++) {
-                        const ordenarPrecioAlto = productos.filter((element) => {
+                        const productosSeleccionadosOrdenar = productos.filter((element) => {
                             return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
                         });
 
-                    ordenarPrecioAlto.forEach((element) => {
-                        resultadoOrdenarPrecioAlto.push(element);
+                    productosSeleccionadosOrdenar.forEach((element) => {
+                        resultadoOrdenar.push(element);
                       })
-
-                    console.log(ordenarPrecioAlto);
                     
-                    resultadoOrdenarPrecioAlto.sort((a, b) => {
+                    resultadoOrdenar.sort((a, b) => {
                         return b.precio - a.precio;
                     })
 
                     cardsResultado.innerHTML ="";
 
-                    readProductos(resultadoOrdenarPrecioAlto);
+                    readProductos(resultadoOrdenar);
                     }                                        
                     break;
                 case 3:
                     for (let i = 0; i < activeFinal.length; i++) {
-                        const ordenarPrecioAlto = productos.filter((element) => {
+                        const productosSeleccionadosOrdenar = productos.filter((element) => {
                             return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
                         });
 
-                    ordenarPrecioAlto.forEach((element) => {
-                        resultadoOrdenarPrecioAlto.push(element);
+                    productosSeleccionadosOrdenar.forEach((element) => {
+                        resultadoOrdenar.push(element);
                       })
-
-                    console.log(ordenarPrecioAlto);
                     
-                    resultadoOrdenarPrecioAlto.sort((a, b) => {
+                    resultadoOrdenar.sort((a, b) => {
                         return a.nombre.localeCompare(b.nombre);
                     });
 
                     cardsResultado.innerHTML ="";
 
-                    readProductos(resultadoOrdenarPrecioAlto);
+                    readProductos(resultadoOrdenar);
                     }                                        
                     break;
                 case 4:
                     for (let i = 0; i < activeFinal.length; i++) {
-                        const ordenarPrecioAlto = productos.filter((element) => {
+                        const productosSeleccionadosOrdenar = productos.filter((element) => {
                             return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
                         });
 
-                    ordenarPrecioAlto.forEach((element) => {
-                        resultadoOrdenarPrecioAlto.push(element);
+                    productosSeleccionadosOrdenar.forEach((element) => {
+                        resultadoOrdenar.push(element);
                       })
-
-                    console.log(ordenarPrecioAlto);
                     
-                    resultadoOrdenarPrecioAlto.sort((a, b) => {
+                    resultadoOrdenar.sort((a, b) => {
                         return b.nombre.localeCompare(a.nombre);
                     });
 
                     cardsResultado.innerHTML ="";
 
-                    readProductos(resultadoOrdenarPrecioAlto);
+                    readProductos(resultadoOrdenar);
                     }                                        
                     break;
             }
@@ -403,6 +399,260 @@ export const filtrarPorItemCategoria = () => {
             
             }                                        
     }
+
+    ordenarPorMobile[0].onclick = function(){
+      let a = 0;
+        
+        for (let i = 0; i < 2*productoCategoria.length; i++) {
+            if (inputItemCategoria[i].checked) {
+                a = a + 1;                
+            }
+        }
+
+        console.log(a);
+
+        const resultadoOrdenar = [];
+
+        if (a > 0) {
+          for (let i = 0; i < activeFinal.length; i++) {
+            const productosSeleccionadosOrdenar = productos.filter((element) => {
+                return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
+            });
+
+        productosSeleccionadosOrdenar.forEach((element) => {
+            resultadoOrdenar.push(element);
+          })
+        
+        resultadoOrdenar.sort((a, b) => {
+            return a.precio - b.precio;
+
+        });
+
+        cardsResultado.innerHTML ="";
+
+        readProductos(resultadoOrdenar);
+        }         
+        }else{
+          productos.sort((a, b) => {
+            return a.precio - b.precio;
+        })
+        cardsResultado.innerHTML =""
+        readProductos(productos);
+        }
+    }
+
+    ordenarPorMobile[1].onclick = function(){
+      let a = 0;
+        
+        for (let i = 0; i < 2*productoCategoria.length; i++) {
+            if (inputItemCategoria[i].checked) {
+                a = a + 1;                
+            }
+        }
+
+        console.log(a);
+
+        const resultadoOrdenar = [];
+
+        if (a > 0) {
+          for (let i = 0; i < activeFinal.length; i++) {
+            const productosSeleccionadosOrdenar = productos.filter((element) => {
+                return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
+            });
+
+        productosSeleccionadosOrdenar.forEach((element) => {
+            resultadoOrdenar.push(element);
+          })
+        
+        resultadoOrdenar.sort((a, b) => {
+            return b.precio - a.precio;
+
+        });
+
+        cardsResultado.innerHTML ="";
+
+        readProductos(resultadoOrdenar);
+        }         
+        }else{
+          productos.sort((a, b) => {
+            return b.precio - a.precio;
+        })
+        cardsResultado.innerHTML =""
+        readProductos(productos);
+        }
+    
+
+    }
+
+    ordenarPorMobile[2].onclick = function(){
+      let a = 0;
+        
+        for (let i = 0; i < 2*productoCategoria.length; i++) {
+            if (inputItemCategoria[i].checked) {
+                a = a + 1;                
+            }
+        }
+
+        console.log(a);
+
+        const resultadoOrdenar = [];
+
+        if (a > 0) {
+          for (let i = 0; i < activeFinal.length; i++) {
+            const productosSeleccionadosOrdenar = productos.filter((element) => {
+                return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
+            });
+
+        productosSeleccionadosOrdenar.forEach((element) => {
+            resultadoOrdenar.push(element);
+          })
+        
+        resultadoOrdenar.sort((a, b) => {
+          return a.nombre.localeCompare(b.nombre);
+          ;
+
+        });
+
+        cardsResultado.innerHTML ="";
+
+        readProductos(resultadoOrdenar);
+        }         
+        }else{
+          productos.sort((a, b) => {
+            return a.nombre.localeCompare(b.nombre);
+            ;
+        })
+        cardsResultado.innerHTML =""
+        readProductos(productos);
+        }
+    
+
+    }
+
+    ordenarPorMobile[3].onclick = function(){
+      let a = 0;
+        
+        for (let i = 0; i < 2*productoCategoria.length; i++) {
+            if (inputItemCategoria[i].checked) {
+                a = a + 1;                
+            }
+        }
+
+        console.log(a);
+
+        const resultadoOrdenar = [];
+
+        if (a > 0) {
+          for (let i = 0; i < activeFinal.length; i++) {
+            const productosSeleccionadosOrdenar = productos.filter((element) => {
+                return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
+            });
+
+        productosSeleccionadosOrdenar.forEach((element) => {
+            resultadoOrdenar.push(element);
+          })
+        
+        resultadoOrdenar.sort((a, b) => {
+          return b.nombre.localeCompare(a.nombre);
+          ;
+
+        });
+
+        cardsResultado.innerHTML ="";
+
+        readProductos(resultadoOrdenar);
+        }         
+        }else{
+          productos.sort((a, b) => {
+            return b.nombre.localeCompare(a.nombre);
+            ;
+        })
+        cardsResultado.innerHTML =""
+        readProductos(productos);
+        }
+    
+
+    }
+}
+
+export const contadorProductos = () => {
+
+  const indicadorItem = document.getElementById("indicadorItem");
+
+  const funcionContarProductos = (element, index) => {
+
+      if (element.className.includes("hidden")) {
+        cantidadproductosInput[index].classList.add("comprado");
+      }else{
+        cantidadproductosInput[index].classList.remove("comprado");
+      }
+  
+      const elementosClaseComprado = document.querySelectorAll(".comprado");
+
+      const arrayContadorProductosComprados = [];
+
+      elementosClaseComprado.forEach((element) => {
+        arrayContadorProductosComprados.push(parseInt(element.value));
+      })
+
+      console.log(arrayContadorProductosComprados);
+    
+      const totalProductosComprados = arrayContadorProductosComprados.reduce((a,b) => a+b);
+      indicadorItem.innerHTML = totalProductosComprados
+
+      console.log(totalProductosComprados);
+            
+  }
+
+  // ----add-products  y minus-products----
+
+  const cantidadproductosInput = document.querySelectorAll(".cantidadproductos-input");
+  const addProduct = document.querySelectorAll(".add-product");
+  const deleteProduct = document.querySelectorAll(".delete-product");
+  const minusProduct = document.querySelectorAll(".minus-product");
+  const agregarButton = document.querySelectorAll(".agregar-button");
+
+  cantidadproductosInput.forEach((element,index) => {
+    addProduct[index].addEventListener("click", () => {
+      element.value = parseInt(element.value) + 1;
+      deleteProduct[index].classList.toggle("hidden", parseInt(element.value) > 1);
+      minusProduct[index].classList.remove("hidden");
+      funcionContarProductos(agregarButton[index],index);
+    })
+
+    minusProduct[index].addEventListener("click", () => {
+      element.value = parseInt(element.value) - 1;
+      minusProduct[index].classList.toggle("hidden", parseInt(element.value) < 2);
+      if (parseInt(element.value) < 2) {
+        deleteProduct[index].classList.remove("hidden");
+      }
+      funcionContarProductos(agregarButton[index],index);
+    })
+
+    deleteProduct[index].addEventListener("click", () => {
+      agregarButton[index].classList.remove("hidden");
+      cantidadProductosAgregados[index].classList.add("hidden");
+      funcionContarProductos(agregarButton[index],index);
+    })
+
+  })
+
+
+  // Cambio de button y contar clase comprado para determinar la cantidad de productos comprados
+  const cantidadProductosAgregados = document.querySelectorAll(".cantidad-productosagregados");
+
+  agregarButton.forEach((element,index) => {
+    element.addEventListener("click", () => {
+      element.classList.add("hidden");
+      cantidadProductosAgregados[index].classList.remove("hidden");
+
+      funcionContarProductos(element, index);
+
+      // Contar Clase Comprado
+     
+    })
+  }) 
+  
 }
 
 

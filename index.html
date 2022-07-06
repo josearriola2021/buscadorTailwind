@@ -21,21 +21,21 @@
             <input type="text" placeholder="Search" class="input input-bordered" id="buscadorInput" />
           </div>
           <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-              <div class="w-10 rounded-full">
-                <img src="./img/img-tienda.jpeg"/>
-              </div>
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <figure class="indicator">
+                <i class="bi bi-cart text-3xl"></i>
+                <span class="badge badge-sm indicator-item" id="indicadorItem">8</span>
+              </figure>
             </label>
-            <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-              <li>
-                <a class="justify-between">
-                  Profile
-                  <span class="badge">New</span>
-                </a>
-              </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
-            </ul>
+            <div tabindex="0" class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
+              <div class="card-body">
+                <span class="font-bold text-lg text-black">8 Items</span>
+                <span class="text-info">Subtotal: $999</span>
+                <div class="card-actions">
+                  <button class="btn btn-primary btn-block">View cart</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
       </div>
 
       <!-- Menu Ordenar mobile -->
-      <div class="md:hidden block h-full w-4/5 absolute top-0 -left-full bg-white z-20" id="menuOrdenarMobile">
+      <div class="md:hidden block w-4/5 h-full fixed top-0 -left-full bg-white z-20" id="menuOrdenarMobile">
         <div class="flex bg-red-600 text-white py-3">
           <div class="text-lg font-semibold flex-9">
             <p class="text-center">ORDENAR POR</p>
@@ -80,10 +80,10 @@
         </div>
         <div class="bg-base-200 text-gray-500 text-xs py-3 px-4">Selecciona una opción</div>
         <ul class="menu">
-          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Precio alto</a></li>
-          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Precio bajo</a></li>
-          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Nombre,creciente</a></li>
-          <li><a class="active:bg-gray-300 active:text-gray-800 border-b">Nombre,decreciente</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b ordenarPorMobile">Precio alto</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b ordenarPorMobile">Precio bajo</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b ordenarPorMobile">Nombre,creciente</a></li>
+          <li><a class="active:bg-gray-300 active:text-gray-800 border-b ordenarPorMobile">Nombre,decreciente</a></li>
         </ul>
       </div>
 
