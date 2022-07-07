@@ -595,6 +595,7 @@ export const filtrarPorItemCategoria = () => {
 export const contadorProductos = () => {
 
   const indicadorItem = document.getElementById("indicadorItem");
+  const cantidadProductosSpan = document.getElementById("cantidadProductosSpan");
 
   const funcionContarProductos = (element, index) => {
 
@@ -614,10 +615,15 @@ export const contadorProductos = () => {
 
       if (arrayContadorProductosComprados.length > 0) {
         const totalProductosComprados = arrayContadorProductosComprados.reduce((a,b) => a+b);
-        indicadorItem.innerHTML = totalProductosComprados
+        localStorage.setItem("carrito", totalProductosComprados);
+        indicadorItem.innerHTML = localStorage.getItem("carrito");
+        cantidadProductosSpan.innerHTML = `${totalProductosComprados} productos`; 
       }else{
         indicadorItem.innerHTML = 0;
-      }   
+        cantidadProductosSpan.innerHTML = "0 productos";
+      }
+
+
             
   }
 
