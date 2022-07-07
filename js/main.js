@@ -18,7 +18,7 @@ export const readProductos = (arrayProducto) => {arrayProducto.forEach((element)
           <label>
             <span class="cursor-pointer border-2 border-black delete-product" style = "border-radius: 50%; padding: 6px"><i class="bi bi-trash3"></i></span>
             <span class="cursor-pointer hidden minus-product"><i class="bi bi-dash-circle text-2xl"></i></span>
-            <input type="text" value="1" class="input input-bordered cantidadproductos-input" style="width: 70px" />
+            <input type="text" value="1" class="input input-bordered cantidadproductos-input" id="${element.nombre}" style="width: 70px" />
             <span class="cursor-pointer add-product"><i class="bi bi-plus-circle text-2xl"></i></span>
           </label>
         </div>

@@ -596,6 +596,7 @@ export const contadorProductos = () => {
 
   const indicadorItem = document.getElementById("indicadorItem");
   const cantidadProductosSpan = document.getElementById("cantidadProductosSpan");
+  const totalPrecioSpan = document.getElementById("totalPrecioSpan");
 
   const funcionContarProductos = (element, index) => {
 
@@ -622,9 +623,22 @@ export const contadorProductos = () => {
         indicadorItem.innerHTML = 0;
         cantidadProductosSpan.innerHTML = "0 productos";
       }
+      
+      //Costo productos
 
+      const arrayCostoTotal = [];
 
-            
+      elementosClaseComprado.forEach((element) => {
+        const productosCompradoId = productos.filter((elemento) => {
+          return elemento.nombre.toLowerCase().includes(element.getAttribute("id").toLowerCase());
+        })
+        const costoTotal = productosCompradoId[0].precio * parseInt(element.value);
+        arrayCostoTotal.push(costoTotal);
+      })
+
+      const resultadoCostoTotal = arrayCostoTotal.reduce((a,b) => a+b);
+      totalPrecioSpan.innerHTML = `Total: S/ ${resultadoCostoTotal}`;
+
   }
 
   // ----add-products  y minus-products----
@@ -669,8 +683,7 @@ export const contadorProductos = () => {
       element.classList.add("hidden");
       cantidadProductosAgregados[index].classList.remove("hidden");
 
-      funcionContarProductos(element, index);
-     
+      funcionContarProductos(element, index);     
     })
   }) 
   
