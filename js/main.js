@@ -3,6 +3,31 @@ import {productos} from "./dataProductos.js";
 import { eventos, filtrarPorItemCategoria } from "./other.js";
 import { contadorProductos } from "./other.js";
 
+export const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
+  cardsResultado.innerHTML += 
+  `
+  <div class="card bg-base-100 shadow-xl max-w-xs" style="max-height: 400px;">
+      <figure><img src="${element.imagen}" alt="${element.nombre}" /></figure>
+      <div class="card-body flex-none">
+        <h2 class="card-title text-base">${element.nombre}</h2>
+        <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
+        <div class="card-actions justify-end agregar-button">
+          <button class="md:scale-90 btn text-sm btn-primary">Agregar</button>
+        </div>
+        <div class="form-control hidden cantidad-productosagregados">
+          <label>
+            <span class="cursor-pointer border-2 border-black delete-product" style = "border-radius: 50%; padding: 6px"><i class="bi bi-trash3"></i></span>
+            <span class="cursor-pointer hidden minus-product"><i class="bi bi-dash-circle text-2xl"></i></span>
+            <input type="text" value="1" class="input input-bordered cantidadproductos-input" style="width: 70px" />
+            <span class="cursor-pointer add-product"><i class="bi bi-plus-circle text-2xl"></i></span>
+          </label>
+        </div>
+      </div>
+  <div>
+  `
+})
+}
+
 const documentReady = () => {
 
     const cardsResultado = document.getElementById("cardsResultado");
@@ -11,30 +36,7 @@ const documentReady = () => {
     const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");
 
     //Frontend de productos
-    const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
-        cardsResultado.innerHTML += 
-        `
-        <div class="card bg-base-100 shadow-xl max-w-xs" style="max-height: 400px;">
-            <figure><img src="${element.imagen}" alt="${element.nombre}" /></figure>
-            <div class="card-body flex-none">
-              <h2 class="card-title text-base">${element.nombre}</h2>
-              <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
-              <div class="card-actions justify-end agregar-button">
-                <button class="md:scale-90 btn text-sm btn-primary">Agregar</button>
-              </div>
-              <div class="form-control hidden cantidad-productosagregados">
-                <label>
-                  <span class="cursor-pointer border-2 border-black delete-product" style = "border-radius: 50%; padding: 6px"><i class="bi bi-trash3"></i></span>
-                  <span class="cursor-pointer hidden minus-product"><i class="bi bi-dash-circle text-2xl"></i></span>
-                  <input type="text" value="1" class="input input-bordered cantidadproductos-input" style="width: 70px" />
-                  <span class="cursor-pointer add-product"><i class="bi bi-plus-circle text-2xl"></i></span>
-                </label>
-              </div>
-            </div>
-        <div>
-        `
-    })
-    }
+    
 
     //Carga el frontend del array productos
     readProductos(productos)
@@ -111,280 +113,9 @@ const documentReady = () => {
       indice += 1
     }
 
-    // //Logica para filtrar por categorias
-    // const inputItemCategoria = document.querySelectorAll(".input-itemCategoria");
-    // const spanLabelItemCategoria = document.querySelectorAll(".span__label-itemCategoria");
-
-    // const filtrarPorItemCategoria = () => {
-
-    //   //Logica por filtro independiente
-    //   for (let i = 0; i < 2*productoCategoria.length; i++) {
-
-    //     inputItemCategoria[i].addEventListener("click", () => {
-
-    //       //Cada vez que selecciono un item se cierra la seccion categorías
-    //       setTimeout(() => {
-    //         if (i < productoCategoria.length) {
-    //           const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
-    //           menuCategoriaMobileContainer.classList.add("-left-full");
-    //           menuCategoriaMobileContainer.classList.remove("animate-despliegueAbrir");
-    //           menuCategoriaMobileContainer.classList.add("animate-despliegueCerrar");
-    //           bodyWeb.classList.remove("overflow-hidden");
-    //           sectionOpacity.classList.remove("z-10");
-    //           sectionOpacity.classList.remove("opacity-40");
-    //         }
-    //       },400);
-    //       //
-
-    //       let arrayContenidoSpanActive = []; //Guarda el innerHTML de las clases active
-    //       spanLabelItemCategoria[i].classList.toggle("active");
-
-    //       const spanActive = document.querySelectorAll(".active");
-
-
-    //       for (let i = 0; i < spanActive.length; i++) {
-    //         arrayContenidoSpanActive.push(spanActive[i].innerHTML);
-    //       }
-
-
-    //       const resultadoFiltroCategoria = []; //Acumula los objetos que coincidan con el filtrado
-          
-    //       for (let i = 0; i < spanActive.length; i++) {
-    //         const filtroCategoria = productos.filter((element) => {
-    //           return element.itemcategoria.toLowerCase().includes(arrayContenidoSpanActive[i].toLowerCase());
-    //         })
-
-    //         filtroCategoria.forEach((element) => {
-    //           resultadoFiltroCategoria.push(element);
-    //         })
-    //       }
-
-    //       if (arrayContenidoSpanActive.length == 0) {
-    //         cardsResultado.innerHTML = "";
-    //         readProductos(productos);            
-    //       }else{
-    //         cardsResultado.innerHTML = "";
-    //         readProductos(resultadoFiltroCategoria); 
-    //       }
-          
-    //     })
-    //   }
-
-    //   const seleccionarTodo = document.querySelectorAll(".seleccionar-todo");
-    //   const limpiar = document.querySelectorAll(".limpiar");
-    //   const collapseTitleCategoria = document.querySelectorAll(".collapse-title__categoria");
-
-    //   const funcionLimpiar = (accion, estado) => {
-                
-    //     for (let i = 0; i < seleccionarTodo.length; i++) {
-    //       accion[i].addEventListener("click", () => {
-    //         const itemsSeleccionados = productoCategoria.filter((element) => {
-    //           return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-    //         }) 
-
-    //         if (accion[0].className.includes("seleccionar-todo")) {
-    //           //Limpia los checked                    
-    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //             inputItemCategoria[i].checked = false;
-    //           }
-            
-    //           //Limpia los active
-    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //             spanLabelItemCategoria[i].classList.remove("active");
-
-    //           }              
-    //         }
-
-    //         if (accion[0].className.includes("limpiar")) {
-    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //             inputItemCategoria[i].checked = false;
-    //           }
-    //         }
-
-    //         //Limpia los active, para volver a seleccioanr
-    //         if (accion[0].className.includes("limpiar")) {
-    //           for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //             spanLabelItemCategoria[i].classList.remove("active");               
-    //           }              
-    //         }
-
-              
-    //         if (i >= categoria.length) {
-    //           for (const element of itemsSeleccionados) {
-    //             for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
-    //               if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-    //                 inputItemCategoria[i].checked = estado;
-    //                 if(accion[0].className.includes("seleccionar-todo")){
-    //                   spanLabelItemCategoria[i].classList.add("active");
-    //                 }else{
-    //                   spanLabelItemCategoria[i].classList.remove("active");
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }else{
-    //           for (const element of itemsSeleccionados) {
-    //             for (let i = 0; i < productoCategoria.length; i++) {
-    //               if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-    //                 inputItemCategoria[i].checked = estado;
-    //                 if(accion[0].className.includes("seleccionar-todo")){
-    //                   spanLabelItemCategoria[i].classList.add("active");
-    //                 }else{
-    //                   spanLabelItemCategoria[i].classList.remove("active");
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-  
-    //         cardsResultado.innerHTML = "";
-    //         readProductos(productos);
-    //       })   
-    //     }
-    //   }
-
-    //   const funcionSeleccionarTodo = (accion, estado) => {
-
-    //     // for (let i = 0; i < 2*collapseTitleCategoria.length; i++) {
-    //     //   console.log(accion);
-    //     //   accion[i].addEventListener("click", () => {
-    //     //     //Limpia los checked                    
-    //     //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //     //       inputItemCategoria[i].checked = false;
-    //     //     }
-          
-    //     //     //Limpia los active
-    //     //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //     //       spanLabelItemCategoria[i].classList.remove("active");
-    //     //     }
-
-    //     //   })
-    //     //   console.log("Hola mundos");
-    //     // }
-
-    //     funcionLimpiar(accion, estado);
-        
-    //     for (let i = 0; i < seleccionarTodo.length; i++) {
-    //       accion[i].addEventListener("click", () => {
-    //         const resultadoSeleccionarTodo = productos.filter((element) => {
-    //           return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-    //         }) 
-    //         cardsResultado.innerHTML="";
-    //         readProductos(resultadoSeleccionarTodo);
-    //       })
-    //     }
-    //   }
-
-
     filtrarPorItemCategoria();
     
-    //   //Logica para filtro de seleccionar todo
-    //   // for (let i = 0; i < seleccionarTodo.length; i++) {
-    //   //   seleccionarTodo[i].addEventListener("click", () => {
-    //   //     const resultadoSeleccionarTodo = productos.filter((element) => {
-    //   //       return element.categoria.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-    //   //     })
-
-    //   //     //Limpia los checked                    
-    //   //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //   //       inputItemCategoria[i].checked = false;
-    //   //     }
-
-    //   //     //Limpia los active
-    //   //     for (let i = 0; i < 2*productoCategoria.length; i++) {
-    //   //       spanLabelItemCategoria[i].classList.remove("active");
-    //   //     }
-
-
-
-    //   //     //Cada vez que selecciono un item se cierra la seccion categorías
-    //   //       setTimeout(() => {
-    //   //         if (i < categoria.length) {
-    //   //           const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
-    //   //           menuCategoriaMobileContainer.classList.add("-left-full");
-    //   //           menuCategoriaMobileContainer.classList.remove("animate-despliegueAbrir");
-    //   //           menuCategoriaMobileContainer.classList.add("animate-despliegueCerrar");
-    //   //           bodyWeb.classList.remove("overflow-hidden");
-    //   //           sectionOpacity.classList.remove("z-10");
-    //   //           sectionOpacity.classList.remove("opacity-40");
-    //   //         }
-    //   //       },400);
-
-    //   //     //
-
-    //   //     //Checked de los inputs
-
-    //   //     const itemsSeleccionarTodo = productoCategoria.filter((element) => {
-    //   //       return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-    //   //     })
-
-    //   //     if (i >= categoria.length) {
-    //   //       for (const element of itemsSeleccionarTodo) {
-    //   //         for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
-    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-    //   //             inputItemCategoria[i].checked = true;
-    //   //             spanLabelItemCategoria[i].classList.add("active");
-    //   //           }
-    //   //         }
-    //   //       }
-    //   //     }else{
-    //   //       for (const element of itemsSeleccionarTodo) {
-    //   //         for (let i = 0; i < productoCategoria.length; i++) {
-    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-    //   //             inputItemCategoria[i].checked = true;
-    //   //             spanLabelItemCategoria[i].classList.toggle("active");
-    //   //           }
-    //   //         }
-    //   //       }
-    //   //     }
-          
-    //   //     cardsResultado.innerHTML="";
-    //   //     readProductos(resultadoSeleccionarTodo);
-    //   //   })
-    //   // }
-
-
-    //   //Logica para desacti   checked y volver a su estado original cuando limpias
-    //   // for (let i = 0; i < seleccionarTodo.length; i++) {
-    //   //   limpiar[i].addEventListener("click", () => {
-    //   //     const itemsLimpiar = productoCategoria.filter((element) => {
-    //   //       return element.tipo.toLowerCase().includes(collapseTitleCategoria[i].innerHTML.toLowerCase());
-    //   //     }) 
-
-    //   //     if (i >= categoria.length) {
-    //   //       for (const element of itemsLimpiar) {
-    //   //         for (let i = productoCategoria.length; i < 2*productoCategoria.length; i++) {
-    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-    //   //             inputItemCategoria[i].checked = false;
-    //   //             spanLabelItemCategoria[i].classList.remove("active");
-    //   //           }
-    //   //         }
-    //   //       }
-    //   //     }else{
-    //   //       for (const element of itemsLimpiar) {
-    //   //         for (let i = 0; i < productoCategoria.length; i++) {
-    //   //           if (element.nombre.toLowerCase() == spanLabelItemCategoria[i].innerHTML.toLowerCase()) {
-    //   //             inputItemCategoria[i].checked = false;
-    //   //             spanLabelItemCategoria[i].classList.remove("active");
-    //   //           }
-    //   //         }
-    //   //       }
-    //   //     }
-
-    //   //     cardsResultado.innerHTML = "";
-    //   //     readProductos(productos);
-    //   //   })   
-
-        
-    //   // }
-    // }
-
-    // filtrarPorItemCategoria();
-
-
-        //Evento de cambios de flecha
-    
-        const cambioFlecha = () => {
+    const cambioFlecha = () => {
       const inputTitleCategoria = document.querySelectorAll(".inputtitle-categoria");
       // const iconDownCategoria = document.querySelectorAll(".iconDown-categoria");
       // const iconUpCategoria = document.querySelectorAll(".iconUp-categoria");
@@ -407,7 +138,7 @@ const documentReady = () => {
       })
     
     }
-  }
+    }
 
     cambioFlecha();    
 
@@ -421,8 +152,10 @@ const documentReady = () => {
 
             if (productos == "") {
               readProductos(productos);
+              contadorProductos();
             }else{
               readProductos(productosBuscados);
+              contadorProductos();
             }
 
             //Vacía el filtrado cuando vas a usar el buscador
@@ -435,8 +168,7 @@ const documentReady = () => {
     }
     
     buscador();
-
-    
+  
 }
 
 document.addEventListener('DOMContentLoaded', documentReady);

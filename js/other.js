@@ -1,22 +1,23 @@
 import { productoCategoria, categoria } from "./dataCategorias.js";
 import { productos } from "./dataProductos.js";
+import { readProductos } from "./main.js";
 
-const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
-    cardsResultado.innerHTML += 
-    `
-    <div class="card bg-base-100 shadow-xl max-w-xs" style="max-height: 400px;">
-        <figure><img src="${element.imagen}" alt="${element.nombre}" /></figure>
-        <div class="card-body flex-none">
-          <h2 class="card-title text-base">${element.nombre}</h2>
-          <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
-          <div class="card-actions justify-end">
-            <button class="md:scale-90 btn text-sm btn-primary">Agregar</button>
-          </div>
-        </div>
-    <div>
-    `
-})
-}
+// const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
+//     cardsResultado.innerHTML += 
+//     `
+//     <div class="card bg-base-100 shadow-xl max-w-xs" style="max-height: 400px;">
+//         <figure><img src="${element.imagen}" alt="${element.nombre}" /></figure>
+//         <div class="card-body flex-none">
+//           <h2 class="card-title text-base">${element.nombre}</h2>
+//           <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
+//           <div class="card-actions justify-end">
+//             <button class="md:scale-90 btn text-sm btn-primary">Agregar</button>
+//           </div>
+//         </div>
+//     <div>
+//     `
+// })
+// }
 
 export const eventos = () => {
 
@@ -154,10 +155,12 @@ export const filtrarPorItemCategoria = () => {
 
         if (arrayContenidoSpanActive.length == 0) {
           cardsResultado.innerHTML = "";
-          readProductos(productos);            
+          readProductos(productos);
+          contadorProductos();
         }else{
           cardsResultado.innerHTML = "";
           readProductos(resultadoFiltroCategoria); 
+          contadorProductos();
         }
 
         ordenarPor.selectedIndex = 0;
@@ -243,6 +246,7 @@ export const filtrarPorItemCategoria = () => {
 
           cardsResultado.innerHTML = "";
           readProductos(productos);
+          contadorProductos();
         })   
       }
 
@@ -261,6 +265,7 @@ export const filtrarPorItemCategoria = () => {
           ordenarPor.selectedIndex = 0;
           cardsResultado.innerHTML="";
           readProductos(resultadoSeleccionarTodo);
+          contadorProductos();
         })
       }
 
@@ -280,32 +285,11 @@ export const filtrarPorItemCategoria = () => {
             }
         }
 
-        console.log(a);
-
         const resultadoOrdenar = [];
 
         if (a > 0) {
             switch (ordenarPor.selectedIndex) {
                 case 1:
-                    for (let i = 0; i < activeFinal.length; i++) {
-                        const productosSeleccionadosOrdenar = productos.filter((element) => {
-                            return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
-                        });
-
-                    productosSeleccionadosOrdenar.forEach((element) => {
-                        resultadoOrdenar.push(element);
-                      })
-                    
-                    resultadoOrdenar.sort((a, b) => {
-                        return a.precio - b.precio;
-                    })
-
-                    cardsResultado.innerHTML ="";
-
-                    readProductos(resultadoOrdenar);
-                    }                                        
-                    break;
-                case 2:
                     for (let i = 0; i < activeFinal.length; i++) {
                         const productosSeleccionadosOrdenar = productos.filter((element) => {
                             return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
@@ -322,6 +306,27 @@ export const filtrarPorItemCategoria = () => {
                     cardsResultado.innerHTML ="";
 
                     readProductos(resultadoOrdenar);
+                    contadorProductos();
+                    }                                        
+                    break;
+                case 2:
+                    for (let i = 0; i < activeFinal.length; i++) {
+                        const productosSeleccionadosOrdenar = productos.filter((element) => {
+                            return element.itemcategoria.toLowerCase().includes(activeFinal[i].innerHTML.toLowerCase())
+                        });
+
+                    productosSeleccionadosOrdenar.forEach((element) => {
+                        resultadoOrdenar.push(element);
+                      })
+                    
+                    resultadoOrdenar.sort((a, b) => {
+                        return a.precio - b.precio;
+                    })
+
+                    cardsResultado.innerHTML ="";
+
+                    readProductos(resultadoOrdenar);
+                    contadorProductos();
                     }                                        
                     break;
                 case 3:
@@ -341,6 +346,7 @@ export const filtrarPorItemCategoria = () => {
                     cardsResultado.innerHTML ="";
 
                     readProductos(resultadoOrdenar);
+                    contadorProductos();
                     }                                        
                     break;
                 case 4:
@@ -360,6 +366,7 @@ export const filtrarPorItemCategoria = () => {
                     cardsResultado.innerHTML ="";
 
                     readProductos(resultadoOrdenar);
+                    contadorProductos();
                     }                                        
                     break;
             }
@@ -367,17 +374,19 @@ export const filtrarPorItemCategoria = () => {
             switch (ordenarPor.selectedIndex) {
                 case 1:
                     productos.sort((a, b) => {
-                        return a.precio - b.precio;
-                    })
-                    cardsResultado.innerHTML =""
-                    readProductos(productos);
-                    break;
-                case 2:
-                    productos.sort((a, b) => {
                         return b.precio - a.precio;
                     })
                     cardsResultado.innerHTML =""
                     readProductos(productos);
+                    contadorProductos();
+                    break;
+                case 2:
+                    productos.sort((a, b) => {
+                        return a.precio - b.precio;
+                    })
+                    cardsResultado.innerHTML =""
+                    readProductos(productos);
+                    contadorProductos();
                     break;
                 case 3:
                     productos.sort((a, b) => {
@@ -386,6 +395,7 @@ export const filtrarPorItemCategoria = () => {
                     console.log(productos);
                     cardsResultado.innerHTML =""
                     readProductos(productos);
+                    contadorProductos();
                     break;
                 case 4:
                     productos.sort((a,b) => {
@@ -393,6 +403,7 @@ export const filtrarPorItemCategoria = () => {
                     });
                     cardsResultado.innerHTML =""
                     readProductos(productos);
+                    contadorProductos();
                     break;
             }
 
@@ -431,6 +442,7 @@ export const filtrarPorItemCategoria = () => {
         cardsResultado.innerHTML ="";
 
         readProductos(resultadoOrdenar);
+        contadorProductos();
         }         
         }else{
           productos.sort((a, b) => {
@@ -438,6 +450,7 @@ export const filtrarPorItemCategoria = () => {
         })
         cardsResultado.innerHTML =""
         readProductos(productos);
+        contadorProductos();
         }
     }
 
@@ -472,6 +485,7 @@ export const filtrarPorItemCategoria = () => {
         cardsResultado.innerHTML ="";
 
         readProductos(resultadoOrdenar);
+        contadorProductos();
         }         
         }else{
           productos.sort((a, b) => {
@@ -479,6 +493,7 @@ export const filtrarPorItemCategoria = () => {
         })
         cardsResultado.innerHTML =""
         readProductos(productos);
+        contadorProductos();
         }
     
 
@@ -492,8 +507,6 @@ export const filtrarPorItemCategoria = () => {
                 a = a + 1;                
             }
         }
-
-        console.log(a);
 
         const resultadoOrdenar = [];
 
@@ -516,6 +529,7 @@ export const filtrarPorItemCategoria = () => {
         cardsResultado.innerHTML ="";
 
         readProductos(resultadoOrdenar);
+        contadorProductos();
         }         
         }else{
           productos.sort((a, b) => {
@@ -524,6 +538,7 @@ export const filtrarPorItemCategoria = () => {
         })
         cardsResultado.innerHTML =""
         readProductos(productos);
+        contadorProductos();
         }
     
 
@@ -561,6 +576,7 @@ export const filtrarPorItemCategoria = () => {
         cardsResultado.innerHTML ="";
 
         readProductos(resultadoOrdenar);
+        contadorProductos();
         }         
         }else{
           productos.sort((a, b) => {
@@ -569,6 +585,7 @@ export const filtrarPorItemCategoria = () => {
         })
         cardsResultado.innerHTML =""
         readProductos(productos);
+        contadorProductos();
         }
     
 
@@ -595,12 +612,12 @@ export const contadorProductos = () => {
         arrayContadorProductosComprados.push(parseInt(element.value));
       })
 
-      console.log(arrayContadorProductosComprados);
-    
-      const totalProductosComprados = arrayContadorProductosComprados.reduce((a,b) => a+b);
-      indicadorItem.innerHTML = totalProductosComprados
-
-      console.log(totalProductosComprados);
+      if (arrayContadorProductosComprados.length > 0) {
+        const totalProductosComprados = arrayContadorProductosComprados.reduce((a,b) => a+b);
+        indicadorItem.innerHTML = totalProductosComprados
+      }else{
+        indicadorItem.innerHTML = 0;
+      }   
             
   }
 
@@ -647,8 +664,6 @@ export const contadorProductos = () => {
       cantidadProductosAgregados[index].classList.remove("hidden");
 
       funcionContarProductos(element, index);
-
-      // Contar Clase Comprado
      
     })
   }) 
