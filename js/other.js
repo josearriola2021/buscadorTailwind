@@ -12,6 +12,7 @@ const closeLogin = document.getElementById("closeLogin");
 const spinnerLogin = document.getElementById("spinnerLogin");
 const formLogin = document.getElementById("formLogin");
 const inicioSesionHeaderItems = document.getElementById("inicioSesionHeaderItems");
+const inicioSesionHeaderUsuario = document.getElementById("inicioSesionHeaderUsuario");
 
 export const eventos = () => {
 
@@ -609,6 +610,11 @@ const validacionLogin = () => {
           },2000); 
         //Show los items del inicio de sesion
         inicioSesionHeaderItems.classList.remove("hidden");
+        //SHow nombre de usuario
+        setTimeout(() => {
+          inicioSesionHeaderUsuario.innerHTML = element.nameUser;
+        },3500)
+
       }else{
         Swal.fire(
           "Usuario no registrado",
@@ -753,6 +759,7 @@ export const inicioSesion = () => {
       loginModal.click();
       validacionLogin();
       bodyWeb.classList.add("inicio-sesion"); 
+      //Renombrar con el nombre de usuario
     }
   }
 }
