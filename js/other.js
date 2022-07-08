@@ -1,6 +1,7 @@
 import { productoCategoria, categoria } from "./dataCategorias.js";
 import { productos } from "./dataProductos.js";
 import { readProductos } from "./main.js";
+import { users } from "./usuario.js";
 
 const bodyWeb = document.getElementById("bodyWeb");
 
@@ -675,8 +676,6 @@ export const contadorProductos = () => {
       const inputPassword = document.getElementById("inputPassword");
       const closeLogin = document.getElementById("closeLogin");
 
-      const errorEmail = document.getElementById("errorEmail");
-      const errorPassword = document.getElementById("errorPassword");
       const spinnerLogin = document.getElementById("spinnerLogin");
 
       if (!bodyWeb.classList.contains("inicio-sesion")) {
@@ -694,26 +693,31 @@ export const contadorProductos = () => {
             loginModal.click();
             //Validación formLogin
             formLogin.onsubmit = function (e){
-              e.preventDefault();
-              if (inputEmail.value.trim() == "" || inputPassword.value.trim() == "") {
-                errorEmail.classList.remove("hidden");
-                errorPassword.classList.remove("hidden");
-              }else{
-              spinnerLogin.classList.remove("hidden");
-              setTimeout(() => {
-                spinnerLogin.classList.add("hidden");
-              },2000);
-              closeLogin.click();
-              //Que salga el check de inicio de sesion
-              setTimeout(() => {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Sesión iniciada',
-                  showConfirmButton: false,
-                  timer: 1500,
-                })
-                },2000);
-              }
+              e.preventDefault();              
+              users.forEach((element) => {
+                if (element.email == inputEmail.value && element.password == inputPassword.value) {
+                  spinnerLogin.classList.remove("hidden");
+                  setTimeout(() => {
+                    spinnerLogin.classList.add("hidden");
+                  },2000);
+                  closeLogin.click();
+                  //Que salga el check de inicio de sesion
+                  setTimeout(() => {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Sesión iniciada',
+                      showConfirmButton: false,
+                      timer: 1500,
+                    })
+                    },2000);  
+                }else{
+                  Swal.fire(
+                    "Usuario no registrado",
+                  )
+                }
+              }) 
+              
+                         
             }
           }else{
             bodyWeb.classList.add("inicio-sesion");
@@ -724,12 +728,7 @@ export const contadorProductos = () => {
         element.classList.add("hidden");
         cantidadProductosAgregados[index].classList.remove("hidden");
         funcionContarProductos(element, index);
-      }
-
-      
-
-
-      
+      }     
 
     })
   }) 
