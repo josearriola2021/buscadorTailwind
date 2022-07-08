@@ -2,22 +2,7 @@ import { productoCategoria, categoria } from "./dataCategorias.js";
 import { productos } from "./dataProductos.js";
 import { readProductos } from "./main.js";
 
-// const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
-//     cardsResultado.innerHTML += 
-//     `
-//     <div class="card bg-base-100 shadow-xl max-w-xs" style="max-height: 400px;">
-//         <figure><img src="${element.imagen}" alt="${element.nombre}" /></figure>
-//         <div class="card-body flex-none">
-//           <h2 class="card-title text-base">${element.nombre}</h2>
-//           <p class="text-red-500 font-bold text-base">S/. ${element.precio}</p>
-//           <div class="card-actions justify-end">
-//             <button class="md:scale-90 btn text-sm btn-primary">Agregar</button>
-//           </div>
-//         </div>
-//     <div>
-//     `
-// })
-// }
+const bodyWeb = document.getElementById("bodyWeb");
 
 export const eventos = () => {
 
@@ -25,7 +10,6 @@ export const eventos = () => {
       
         const menuOrdenarMobile = document.getElementById("menuOrdenarMobile");
         const menuCategoriaMobileContainer = document.getElementById("menuCategoriaMobileContainer");
-        const bodyWeb = document.getElementById("bodyWeb");
         const sectionOpacity = document.getElementById("sectionOpacity");
 
         const abrirMenuOrdenar = () => {
@@ -627,6 +611,7 @@ export const contadorProductos = () => {
       //Costo productos
 
       const arrayCostoTotal = [];
+      // const almacenamientoProductosComprados = [];
 
       elementosClaseComprado.forEach((element) => {
         const productosCompradoId = productos.filter((elemento) => {
@@ -634,11 +619,14 @@ export const contadorProductos = () => {
         })
         const costoTotal = productosCompradoId[0].precio * parseInt(element.value);
         arrayCostoTotal.push(costoTotal);
+
+        // almacenamientoProductosComprados.push(productosCompradoId[0]);
       })
 
       const resultadoCostoTotal = arrayCostoTotal.reduce((a,b) => a+b);
       totalPrecioSpan.innerHTML = `Total: S/ ${resultadoCostoTotal}`;
-
+      
+      // sessionStorage.setItem("productosComprados", JSON.stringify(almacenamientoProductosComprados));
   }
 
   // ----add-products  y minus-products----
@@ -677,17 +665,53 @@ export const contadorProductos = () => {
 
   // Cambio de button y contar clase comprado para determinar la cantidad de productos comprados
   const cantidadProductosAgregados = document.querySelectorAll(".cantidad-productosagregados");
+  const formLogin = document.getElementById("formLogin");
 
   agregarButton.forEach((element,index) => {
     element.addEventListener("click", () => {
-      element.classList.add("hidden");
-      cantidadProductosAgregados[index].classList.remove("hidden");
 
-      funcionContarProductos(element, index);     
+      const loginModal = document.getElementById("loginModal");
+
+      if (!bodyWeb.classList.contains("inicio-sesion")) {
+        Swal.fire({
+          title: 'Se recomienda iniciar sesión para realizar tus compras',
+          text: "Deseas iniciar sesión?",
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ok'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            bodyWeb.classList.add("inicio-sesion");
+            loginModal.click();
+            formLogin.onclick = function (){
+              element.classList.add("hidden");
+              cantidadProductosAgregados[index].classList.remove("hidden");
+              funcionContarProductos(element, index);
+            }
+          }else{
+            bodyWeb.classList.add("inicio-sesion");
+            Swal.fire("Sesión no iniciada");
+          }
+        })
+      }else{
+        element.classList.add("hidden");
+        cantidadProductosAgregados[index].classList.remove("hidden");
+        funcionContarProductos(element, index);
+      }
+
+      
+
+
+      
+
     })
   }) 
   
 }
+
+
 
 
 

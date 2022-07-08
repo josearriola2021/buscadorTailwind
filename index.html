@@ -113,10 +113,37 @@
         <article class="mx-auto lg:px-12 sm:px-3 px-4 grid grid-cols-2 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 gap-4" id="cardsResultado" style="grid-template-rows: minmax(0,400px);">
         </article>
       </section>
+
+      <!-- Modal -->
+      <label for="my-modal-3" class="btn modal-button" id="loginModal">open modal</label>
+
+      <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+      <div class="modal">
+        <div class="modal-box relative">
+          <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+          <div class="flex flex-col w-full items-center">
+            <h2 style="margin-bottom: 20px;">Iniciar Sesion</h2>
+            <form class="flex flex-col gap-4" id="formLogin">
+              <div class="flex justify-between items-center gap-2">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Type here" class="input max-w-xs" id="email" style="border-color: rgb(234, 229, 229);" required/>
+              </div>
+              <div class="flex justify-between items-center gap-2">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Type here" class="input w-full max-w-xs" id="password" style="border-color: rgb(234, 229, 229);" required/>
+              </div>
+              <button class="btn btn-active btn-secondary" style="background-color: red; opacity: 0.4;">Ingresar</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
 
     
+    
+    
     <script src="./js/main.js" type="module"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

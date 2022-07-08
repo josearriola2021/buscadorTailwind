@@ -3,6 +3,7 @@ import {productos} from "./dataProductos.js";
 import { eventos, filtrarPorItemCategoria } from "./other.js";
 import { contadorProductos } from "./other.js";
 
+// Lectura de productos
 export const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {
   cardsResultado.innerHTML += 
   `
@@ -33,10 +34,7 @@ const documentReady = () => {
     const cardsResultado = document.getElementById("cardsResultado");
     const buscadorInput = document.getElementById("buscadorInput");
     const categoriaList = document.getElementById("categoriaList");
-    const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");
-
-    //Frontend de productos
-    
+    const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");    
 
     //Carga el frontend del array productos
     readProductos(productos)
@@ -124,17 +122,6 @@ const documentReady = () => {
           inputTitleCategoria[i].addEventListener("click", (e) => {
               iconDownCategoria[i].classList.toggle("hidden");
               iconUpCategoria[i].classList.toggle("hidden");
-              
-              // if (i > 0) {
-              //   if (iconDownCategoria[i-1].className == "bi bi-caret-down iconDown-categoria hidden") {
-              //     categoriaItems[i-1].classList.add("hidden");
-              //   }
-          //       // if (iconDownCategoria[i].className == "bi bi-caret-down iconDown-categoria") {
-          //       //   categoriaItems[i].classList.toggle("hidden");
-          //       // }
-          //     }
-          // });
-
       })
     
     }
