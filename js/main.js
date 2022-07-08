@@ -2,6 +2,7 @@ import { categoria, productoCategoria } from "./dataCategorias.js";
 import {productos} from "./dataProductos.js";
 import { eventos, filtrarPorItemCategoria } from "./other.js";
 import { contadorProductos } from "./other.js";
+import { inicioSesion } from "./other.js";
 
 // Lectura de productos
 export const readProductos = (arrayProducto) => {arrayProducto.forEach((element) => {

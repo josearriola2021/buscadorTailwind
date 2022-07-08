@@ -4,6 +4,12 @@ import { readProductos } from "./main.js";
 import { users } from "./usuario.js";
 
 const bodyWeb = document.getElementById("bodyWeb");
+const loginModal = document.getElementById("loginModal");
+
+const inputEmail = document.getElementById("inputEmail");
+const inputPassword = document.getElementById("inputPassword");
+const closeLogin = document.getElementById("closeLogin");
+const spinnerLogin = document.getElementById("spinnerLogin");
 
 export const eventos = () => {
 
@@ -671,12 +677,6 @@ export const contadorProductos = () => {
   agregarButton.forEach((element,index) => {
     element.addEventListener("click", () => {
 
-      const loginModal = document.getElementById("loginModal");
-      const inputEmail = document.getElementById("inputEmail");
-      const inputPassword = document.getElementById("inputPassword");
-      const closeLogin = document.getElementById("closeLogin");
-
-      const spinnerLogin = document.getElementById("spinnerLogin");
 
       if (!bodyWeb.classList.contains("inicio-sesion")) {
         Swal.fire({
@@ -695,8 +695,11 @@ export const contadorProductos = () => {
             formLogin.onsubmit = function (e){
               e.preventDefault();              
               users.forEach((element) => {
+                //Validación de usuario existente
                 if (element.email == inputEmail.value && element.password == inputPassword.value) {
+                  //Aparece el spinner al cumplir la condición
                   spinnerLogin.classList.remove("hidden");
+                  //Se oculte el spinner dentro de 2segundos
                   setTimeout(() => {
                     spinnerLogin.classList.add("hidden");
                   },2000);
@@ -735,7 +738,44 @@ export const contadorProductos = () => {
   
 }
 
+export const inicioSesion = () => {
+  const inicioSesionHeader = document.getElementById("inicioSesionHeader");
+  inicioSesionHeader.onclick = function(){
+    loginModal.click();
+    formLogin.onsubmit = function (e){
+      e.preventDefault();              
+      users.forEach((element) => {
+        //Validación de usuario existente
+        if (element.email == inputEmail.value && element.password == inputPassword.value) {
+          //Aparece el spinner al cumplir la condición
+          spinnerLogin.classList.remove("hidden");
+          //Se oculte el spinner dentro de 2segundos
+          setTimeout(() => {
+            spinnerLogin.classList.add("hidden");
+          },2000);
+          closeLogin.click();
+          //Que salga el check de inicio de sesion
+          setTimeout(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Sesión iniciada',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            },2000);  
+        }else{
+          Swal.fire(
+            "Usuario no registrado",
+          )
+        }
+      }) 
+      
+                 
+    }
 
+  }
+}
 
+inicioSesion();
 
 
