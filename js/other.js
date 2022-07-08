@@ -10,6 +10,8 @@ const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
 const closeLogin = document.getElementById("closeLogin");
 const spinnerLogin = document.getElementById("spinnerLogin");
+const formLogin = document.getElementById("formLogin");
+const inicioSesionHeaderItems = document.getElementById("inicioSesionHeaderItems");
 
 export const eventos = () => {
 
@@ -583,6 +585,39 @@ export const filtrarPorItemCategoria = () => {
     }
 }
 
+const validacionLogin = () => {
+  formLogin.onsubmit = function (e){
+    e.preventDefault();              
+    users.forEach((element) => {
+      //Validación de usuario existente
+      if (element.email == inputEmail.value && element.password == inputPassword.value) {
+        //Aparece el spinner al cumplir la condición
+        spinnerLogin.classList.remove("hidden");
+        //Se oculte el spinner dentro de 2segundos
+        setTimeout(() => {
+          spinnerLogin.classList.add("hidden");
+        },2000);
+        closeLogin.click();
+        //Que salga el check de inicio de sesion
+        setTimeout(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Sesión iniciada',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          },2000); 
+        //Show los items del inicio de sesion
+        inicioSesionHeaderItems.classList.remove("hidden");
+      }else{
+        Swal.fire(
+          "Usuario no registrado",
+        )
+      }
+    })                
+  }
+}
+
 export const contadorProductos = () => {
 
   const indicadorItem = document.getElementById("indicadorItem");
@@ -672,12 +707,9 @@ export const contadorProductos = () => {
 
   // Cambio de button y contar clase comprado para determinar la cantidad de productos comprados
   const cantidadProductosAgregados = document.querySelectorAll(".cantidad-productosagregados");
-  const formLogin = document.getElementById("formLogin");
 
   agregarButton.forEach((element,index) => {
     element.addEventListener("click", () => {
-
-
       if (!bodyWeb.classList.contains("inicio-sesion")) {
         Swal.fire({
           title: 'Se recomienda iniciar sesión para realizar tus compras',
@@ -691,37 +723,10 @@ export const contadorProductos = () => {
           if (result.isConfirmed) {
             bodyWeb.classList.add("inicio-sesion");
             loginModal.click();
+            inputEmail.innerHTML ="";
+            inputPassword.innerHTML="";
             //Validación formLogin
-            formLogin.onsubmit = function (e){
-              e.preventDefault();              
-              users.forEach((element) => {
-                //Validación de usuario existente
-                if (element.email == inputEmail.value && element.password == inputPassword.value) {
-                  //Aparece el spinner al cumplir la condición
-                  spinnerLogin.classList.remove("hidden");
-                  //Se oculte el spinner dentro de 2segundos
-                  setTimeout(() => {
-                    spinnerLogin.classList.add("hidden");
-                  },2000);
-                  closeLogin.click();
-                  //Que salga el check de inicio de sesion
-                  setTimeout(() => {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Sesión iniciada',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                    },2000);  
-                }else{
-                  Swal.fire(
-                    "Usuario no registrado",
-                  )
-                }
-              }) 
-              
-                         
-            }
+            validacionLogin();
           }else{
             bodyWeb.classList.add("inicio-sesion");
             Swal.fire("Sesión no iniciada");
@@ -740,39 +745,15 @@ export const contadorProductos = () => {
 
 export const inicioSesion = () => {
   const inicioSesionHeader = document.getElementById("inicioSesionHeader");
-  inicioSesionHeader.onclick = function(){
-    loginModal.click();
-    formLogin.onsubmit = function (e){
-      e.preventDefault();              
-      users.forEach((element) => {
-        //Validación de usuario existente
-        if (element.email == inputEmail.value && element.password == inputPassword.value) {
-          //Aparece el spinner al cumplir la condición
-          spinnerLogin.classList.remove("hidden");
-          //Se oculte el spinner dentro de 2segundos
-          setTimeout(() => {
-            spinnerLogin.classList.add("hidden");
-          },2000);
-          closeLogin.click();
-          //Que salga el check de inicio de sesion
-          setTimeout(() => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Sesión iniciada',
-              showConfirmButton: false,
-              timer: 1500,
-            })
-            },2000);  
-        }else{
-          Swal.fire(
-            "Usuario no registrado",
-          )
-        }
-      }) 
-      
-                 
+    inicioSesionHeader.onclick = function(){
+      if (!bodyWeb.classList.contains("inicio-sesion")) {
+      //Vacía los input
+      inputEmail.value ="";
+      inputPassword.value="";
+      loginModal.click();
+      validacionLogin();
+      bodyWeb.classList.add("inicio-sesion"); 
     }
-
   }
 }
 
