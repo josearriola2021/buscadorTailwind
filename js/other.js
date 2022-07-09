@@ -650,6 +650,8 @@ const validacionLogin = () => {
 
 }
 
+const arrayUsuariosRegistrados = [];
+
 const validacionRegistrarse = () => {
   formRegistro.addEventListener("submit", (e) => {
     formRegistro.classList.add("submit");
@@ -683,20 +685,27 @@ const validacionRegistrarse = () => {
           loginModal.click();
         }, 3500);
 
+        const UsuarioRegistrado = {
+          email: inputEmailRegistro.value,
+          usuario: inputUsuarioRegistro.value,
+          password: inputPasswordRegistro.value,
+        };
+
+        arrayUsuariosRegistrados.push(UsuarioRegistrado);
+
         //Para que se agregue nuevamente la opacidad
         buttonAceptarRegistro.classList.add("opacity-40");
+        localStorage.setItem("users",JSON.stringify(arrayUsuariosRegistrados));
 
       }else{
         Swal.fire(
           "Usuario no registrado",
         )
       }  
-    
     } 
     inputEmailRegistro.value ="";
     inputPasswordRegistro.value ="";
     inputUsuarioRegistro.value="";
-
   })
 }
 
