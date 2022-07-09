@@ -587,41 +587,63 @@ export const filtrarPorItemCategoria = () => {
 }
 
 const validacionLogin = () => {
+  //alerta para close en login
+  // bodyWeb.classList.add("inicio-sesion");
+  // Swal.fire("Sesión no iniciada");
+
   formLogin.onsubmit = function (e){
+    
     e.preventDefault();              
     users.forEach((element) => {
-      //Validación de usuario existente
-      if (element.email == inputEmail.value && element.password == inputPassword.value) {
-        //Aparece el spinner al cumplir la condición
-        spinnerLogin.classList.remove("hidden");
-        //Se oculte el spinner dentro de 2segundos
-        setTimeout(() => {
-          spinnerLogin.classList.add("hidden");
-        },2000);
-        closeLogin.click();
-        //Que salga el check de inicio de sesion
-        setTimeout(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Sesión iniciada',
-            showConfirmButton: false,
-            timer: 1500,
-          })
-          },2000); 
-        //Show los items del inicio de sesion
-        inicioSesionHeaderItems.classList.remove("hidden");
-        //SHow nombre de usuario
-        setTimeout(() => {
-          inicioSesionHeaderUsuario.innerHTML = element.nameUser;
-        },3500)
+      formLogin.classList.add("submit");
 
-      }else{
-        Swal.fire(
-          "Usuario no registrado",
-        )
-      }
+      if (formLogin.classList.contains("submit")) {
+        if (element.email == inputEmail.value && element.password == inputPassword.value) {
+          bodyWeb.classList.add("inicio-sesion");
+          //Aparece el spinner al cumplir la condición
+          spinnerLogin.classList.remove("hidden");
+          //Se oculte el spinner dentro de 2segundos
+          setTimeout(() => {
+            spinnerLogin.classList.add("hidden");
+          },2000);
+          //Cierra el login
+          closeLogin.click();
+          //Que salga el check de inicio de sesion
+          setTimeout(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Sesión iniciada',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            },2000); 
+          //Show los items del inicio de sesion
+          inicioSesionHeaderItems.classList.remove("hidden");
+          //SHow nombre de usuario
+          setTimeout(() => {
+            inicioSesionHeaderUsuario.innerHTML = element.nameUser;
+          },3500)
+
+          bodyWeb.classList.add("logueado");
+  
+        }else{
+          Swal.fire(
+            "Usuario no registrado",
+          )
+        }
+      }      
     })                
   }
+
+  closeLogin.onclick = function (){
+    if (!formLogin.classList.contains("submit")) {
+      bodyWeb.classList.add("inicio-sesion");
+      Swal.fire(
+        "No se inició sesión",
+      )
+    }
+  }
+
 }
 
 export const contadorProductos = () => {
@@ -710,7 +732,6 @@ export const contadorProductos = () => {
 
   })
 
-
   // Cambio de button y contar clase comprado para determinar la cantidad de productos comprados
   const cantidadProductosAgregados = document.querySelectorAll(".cantidad-productosagregados");
 
@@ -727,7 +748,6 @@ export const contadorProductos = () => {
           confirmButtonText: 'Ok'
         }).then((result) => {
           if (result.isConfirmed) {
-            bodyWeb.classList.add("inicio-sesion");
             loginModal.click();
             inputEmail.innerHTML ="";
             inputPassword.innerHTML="";
@@ -735,7 +755,7 @@ export const contadorProductos = () => {
             validacionLogin();
           }else{
             bodyWeb.classList.add("inicio-sesion");
-            Swal.fire("Sesión no iniciada");
+            Swal.fire("No se inició sesión");
           }
         })
       }else{
@@ -752,7 +772,7 @@ export const contadorProductos = () => {
 export const inicioSesion = () => {
   const inicioSesionHeader = document.getElementById("inicioSesionHeader");
     inicioSesionHeader.onclick = function(){
-      if (!bodyWeb.classList.contains("inicio-sesion")) {
+      if (!bodyWeb.classList.contains("inicio-sesion") || !bodyWeb.classList.contains("logueado")) {
       //Vacía los input
       inputEmail.value ="";
       inputPassword.value="";
