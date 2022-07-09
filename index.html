@@ -135,35 +135,57 @@
 
       <!-- Modal -->
       <label for="my-modal-3" class="" id="loginModal"></label>
+      <label for="my-modal-4" class="" id="registrarseModal"></label>
+
 
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
       <div class="modal">
-        <div class="modal-box relative">
+        <div class="modal-box relative flex">
           <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2" id="closeLogin">✕</label>
-          <div class="flex flex-col w-full items-center">
+          <div class="flex flex-col w-full items-center" id="sesionModal">
             <h2 style="margin-bottom: 20px;">Iniciar Sesion</h2>
             <form class="flex flex-col gap-4" id="formLogin">
               <div class="flex justify-between items-center gap-2">
                 <label for="inputEmail">Email</label>
                 <input type="email" placeholder="Type here" class="input max-w-xs" id="inputEmail" style="border-color: rgb(234, 229, 229);" required/>
               </div>
-              <div class="hidden" id="errorEmail">
-                <i class="bi bi-exclamation-lg text-red-500"></i>
-                <span class="text-red-500">Ingrese un email válido</span>
-              </div>
               <div class="flex justify-between items-center gap-2">
                 <label for="inputPassword">Password</label>
                 <input type="password" placeholder="Type here" class="input w-full max-w-xs" id="inputPassword" style="border-color: rgb(234, 229, 229);" required/>
               </div>
-              <div class="hidden" id="errorPassword">
-                <i class="bi bi-exclamation-lg text-red-500"></i>
-                <span class="text-red-500">Ingrese una contraseña válida</span>
-              </div>
-              <button class="btn btn-active btn-secondary" style="background-color: red; opacity: 0.4;">Ingresar</button>
+              <button class="btn btn-active btn-secondary opacity-40" style="background-color: red;" id="buttonLogin">Ingresar</button>
             </form>
+            <div style="margin-top: 15px;">¿Eres nuevo? <a href="#" class="text-red-500" id="anchorRegistrate">Regístrate</a> </div>
           </div>
         </div>
       </div>
+
+      <input type="checkbox" id="my-modal-4" class="modal-toggle">
+      <div class="modal">
+        <div class="modal-box relative flex">
+          <label for="my-modal-4" class="btn btn-sm btn-circle absolute right-2 top-2" id="closeRegistro">✕</label>
+          <div class="flex flex-col w-full items-center" id="registroModal">
+            <h2 style="margin-bottom: 20px;">Registrate</h2>
+            <form class="flex flex-col gap-4" id="formRegistro">
+              <div class="flex justify-between items-center gap-2">
+                <label for="inputEmailRegistro">Email</label>
+                <input type="email" placeholder="Type here" class="input max-w-xs" id="inputEmailRegistro" style="border-color: rgb(234, 229, 229);" required/>
+              </div>
+              <div class="flex justify-between items-center gap-2">
+                <label for="inputUsuarioRegistro">Usuario</label>
+                <input type="text" placeholder="Type here" class="input max-w-xs" id="inputUsuarioRegistro" style="border-color: rgb(234, 229, 229);" required/>
+              </div>
+              <div class="flex justify-between items-center gap-2">
+                <label for="inputPasswordRegistro">Password</label>
+                <input type="password" placeholder="Type here" class="input w-full max-w-xs" id="inputPasswordRegistro" style="border-color: rgb(234, 229, 229);" required/>
+              </div>
+              <span class="text-xs bg-red-100 w-11/12 hidden">Ingrese una contraseña mayor a 8 dígitos</span>
+              <button class="btn btn-active btn-secondary opacity-40" style="background-color: red;" id="buttonAceptarRegistro">Aceptar</button>
+            </form>
+          </div>
+        </div>
+        
+      </div>     
     </main>
 
     <!-- Spinner -->

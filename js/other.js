@@ -11,8 +11,13 @@ const inputPassword = document.getElementById("inputPassword");
 const closeLogin = document.getElementById("closeLogin");
 const spinnerLogin = document.getElementById("spinnerLogin");
 const formLogin = document.getElementById("formLogin");
+const formRegistro = document.getElementById("formRegistro");
 const inicioSesionHeaderItems = document.getElementById("inicioSesionHeaderItems");
 const inicioSesionHeaderUsuario = document.getElementById("inicioSesionHeaderUsuario");
+const inicioSesionHeader = document.getElementById("inicioSesionHeader");
+
+const anchorRegistrate = document.getElementById("anchorRegistrate");
+const registrarseModal = document.getElementById("registrarseModal");
 
 export const eventos = () => {
 
@@ -596,7 +601,6 @@ const validacionLogin = () => {
     e.preventDefault();              
     users.forEach((element) => {
       formLogin.classList.add("submit");
-
       if (formLogin.classList.contains("submit")) {
         if (element.email == inputEmail.value && element.password == inputPassword.value) {
           bodyWeb.classList.add("inicio-sesion");
@@ -644,6 +648,56 @@ const validacionLogin = () => {
     }
   }
 
+}
+
+const validacionRegistrarse = () => {
+  formRegistro.addEventListener("submit", (e) => {
+    formRegistro.classList.add("submit");
+    e.preventDefault();
+    if (formRegistro.classList.contains("submit")) {
+      if (inputEmailRegistro.value !== "" && inputPasswordRegistro.value !== "" && inputUsuarioRegistro.value !== "") {
+        bodyWeb.classList.add("inicio-sesion");
+        //Aparece el spinner al cumplir la condición
+        spinnerLogin.classList.remove("hidden");
+        //Se oculte el spinner dentro de 2segundos
+        setTimeout(() => {
+          spinnerLogin.classList.add("hidden");
+        },2000);
+        //Se cierra el modal registrarse
+        registrarseModal.click();
+        //Que salga el check de inicio de sesion
+        setTimeout(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro exitoso',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          },2000);
+          
+        //Desaparece el modal del login
+        loginModal.click();
+
+        //Aparece inmediatamente luego del registro
+        setTimeout(() => {
+          loginModal.click();
+        }, 3500);
+
+        //Para que se agregue nuevamente la opacidad
+        buttonAceptarRegistro.classList.add("opacity-40");
+
+      }else{
+        Swal.fire(
+          "Usuario no registrado",
+        )
+      }  
+    
+    } 
+    inputEmailRegistro.value ="";
+    inputPasswordRegistro.value ="";
+    inputUsuarioRegistro.value="";
+
+  })
 }
 
 export const contadorProductos = () => {
@@ -770,7 +824,6 @@ export const contadorProductos = () => {
 }
 
 export const inicioSesion = () => {
-  const inicioSesionHeader = document.getElementById("inicioSesionHeader");
     inicioSesionHeader.onclick = function(){
       if (!bodyWeb.classList.contains("inicio-sesion") || !bodyWeb.classList.contains("logueado")) {
       //Vacía los input
@@ -786,4 +839,69 @@ export const inicioSesion = () => {
 
 inicioSesion();
 
+const buttonLogin = document.getElementById("buttonLogin");
+const buttonAceptarRegistro = document.getElementById("buttonAceptarRegistro");
+const inputEmailRegistro = document.getElementById("inputEmailRegistro");
+const inputPasswordRegistro = document.getElementById("inputPasswordRegistro");
+const inputUsuarioRegistro = document.getElementById("inputUsuarioRegistro");
 
+const eventoButtonActivar = () => {
+  inputEmail.addEventListener("keyup", () => {
+    if (inputEmail.value !== "" && inputPassword.value !== "") {
+      //Remueve el opacity del boton ingresar en Login
+      buttonLogin.classList.remove("opacity-40");
+    }else{
+      buttonLogin.classList.add("opacity-40");
+    }
+  })
+
+  inputPassword.addEventListener("keyup", () => {
+    if (inputEmail.value !== "" && inputPassword.value !== "") {
+      //Remueve el opacity del boton ingresar en Login
+      buttonLogin.classList.remove("opacity-40");
+    }else{
+      buttonLogin.classList.add("opacity-40");
+    }
+  })
+
+  inputEmailRegistro.addEventListener("keyup", () => {
+    if (inputEmailRegistro.value !== "" && inputPasswordRegistro.value !== "" && inputUsuarioRegistro.value !== "") {
+      //Remueve el opacity del boton ingresar en Login
+      buttonAceptarRegistro.classList.remove("opacity-40");
+    }else{
+      buttonAceptarRegistro.classList.add("opacity-40");
+    }
+  })
+
+  inputPasswordRegistro.addEventListener("keyup", () => {
+    if (inputEmailRegistro.value !== "" && inputPasswordRegistro.value !== "" && inputUsuarioRegistro.value !== "") {
+      //Remueve el opacity del boton ingresar en Login
+      buttonAceptarRegistro.classList.remove("opacity-40");
+    }else{
+      buttonAceptarRegistro.classList.add("opacity-40");
+    }
+  })
+
+  inputUsuarioRegistro.addEventListener("keyup", () => {
+    if (inputEmailRegistro.value !== "" && inputPasswordRegistro.value !== "" && inputUsuarioRegistro.value !== "") {
+      //Remueve el opacity del boton ingresar en Login
+      buttonAceptarRegistro.classList.remove("opacity-40");
+    }else{
+      buttonAceptarRegistro.classList.add("opacity-40");
+    }
+  })
+ 
+}
+
+eventoButtonActivar();
+
+const modalRegistroUsuarios = () => {
+  anchorRegistrate.addEventListener("click", () => {
+    registrarseModal.click();
+  })
+
+  validacionRegistrarse();
+
+}
+
+modalRegistroUsuarios();
