@@ -606,8 +606,7 @@ const validacionLogin = () => {
         const resultadoUserObjeto = usersObjeto.filter((element) => {
           return element.email == inputEmail.value && element.password == inputPassword.value;
         })
-        console.log(resultadoUserObjeto);
-        if ((element.email == inputEmail.value && element.password == inputPassword.value) || resultadoUserObjeto !== "") {
+        if ((element.email == inputEmail.value && element.password == inputPassword.value) || resultadoUserObjeto != "") {
           bodyWeb.classList.add("inicio-sesion");
           //Aparece el spinner al cumplir la condición
           spinnerLogin.classList.remove("hidden");
@@ -630,7 +629,12 @@ const validacionLogin = () => {
           inicioSesionHeaderItems.classList.remove("hidden");
           //SHow nombre de usuario
           setTimeout(() => {
-            inicioSesionHeaderUsuario.innerHTML = element.nameUser;
+            if (resultadoUserObjeto.length > 0) {
+              inicioSesionHeaderUsuario.innerHTML = resultadoUserObjeto[0].usuario;
+              console.log("Soy diferente de vacio");
+            }else{
+              inicioSesionHeaderUsuario.innerHTML = element.usuario;
+            }
           },3500)
 
           bodyWeb.classList.add("logueado");
