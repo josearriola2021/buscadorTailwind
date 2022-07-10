@@ -602,7 +602,12 @@ const validacionLogin = () => {
     users.forEach((element) => {
       formLogin.classList.add("submit");
       if (formLogin.classList.contains("submit")) {
-        if (element.email == inputEmail.value && element.password == inputPassword.value) {
+        const usersObjeto = JSON.parse(localStorage.getItem("users"));
+        const resultadoUserObjeto = usersObjeto.filter((element) => {
+          return element.email == inputEmail.value && element.password == inputPassword.value;
+        })
+        console.log(resultadoUserObjeto);
+        if ((element.email == inputEmail.value && element.password == inputPassword.value) || resultadoUserObjeto !== "") {
           bodyWeb.classList.add("inicio-sesion");
           //Aparece el spinner al cumplir la condición
           spinnerLogin.classList.remove("hidden");
