@@ -598,6 +598,8 @@ const validacionLogin = () => {
 
   formLogin.onsubmit = function (e){
     
+    formLogin.classList.remove("submit-error"); //Para que pueda aparecer una alerta de sesion no iniciada
+
     e.preventDefault();              
     users.forEach((element) => {
       formLogin.classList.add("submit");
@@ -643,10 +645,12 @@ const validacionLogin = () => {
           Swal.fire(
             "Usuario no registrado",
           )
+          formLogin.classList.add("submit-error"); //Para que pueda aparecer una alerta de sesion no iniciada
         }
       }      
     })                
   }
+
 
   closeLogin.onclick = function (){
     if (!formLogin.classList.contains("submit")) {
@@ -654,6 +658,13 @@ const validacionLogin = () => {
       Swal.fire(
         "No se inició sesión",
       )
+    }
+
+    if (formLogin.classList.contains("submit-error")) {
+      bodyWeb.classList.add("inicio-sesion");
+      Swal.fire(
+        "No se inició sesión",
+      )      
     }
   }
 
