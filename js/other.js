@@ -651,7 +651,7 @@ const validacionLogin = () => {
     })                
   }
 
-
+  //Al cerrar el form del login sin haber ingresado algún usuario
   closeLogin.onclick = function (){
     if (!formLogin.classList.contains("submit")) {
       bodyWeb.classList.add("inicio-sesion");
@@ -660,6 +660,7 @@ const validacionLogin = () => {
       )
     }
 
+    //Al cerrar el form del login luego de haber ingresado un usuario incorrecto
     if (formLogin.classList.contains("submit-error")) {
       bodyWeb.classList.add("inicio-sesion");
       Swal.fire(
@@ -729,6 +730,8 @@ const validacionRegistrarse = () => {
   })
 }
 
+let almacenamientoProductosComprados = [];  
+
 export const contadorProductos = () => {
 
   const indicadorItem = document.getElementById("indicadorItem");
@@ -736,6 +739,13 @@ export const contadorProductos = () => {
   const totalPrecioSpan = document.getElementById("totalPrecioSpan");
 
   const funcionContarProductos = (element, index) => {
+
+    let nombreProductoComprado = {
+      nombre: "",
+      precio:0,
+      cantidad:0,
+      total:0,
+    };
 
       if (element.className.includes("hidden")) {
         cantidadproductosInput[index].classList.add("comprado");
@@ -760,26 +770,54 @@ export const contadorProductos = () => {
         indicadorItem.innerHTML = 0;
         cantidadProductosSpan.innerHTML = "0 productos";
       }
+
+      const almacenar = (indice, productosCompradoId) => {
+          nombreProductoComprado = {
+            ...nombreProductoComprado,
+            nombre: productosCompradoId[0].nombre,
+            precio: productosCompradoId[0].precio,
+            cantidad: cantidadproductosInput[indice].value,
+            total: (productosCompradoId[0].precio) * (cantidadproductosInput[index].value),
+          }
+          almacenamientoProductosComprados.push(nombreProductoComprado);
+          localStorage.setItem("productosComprados", JSON.stringify(almacenamientoProductosComprados));
+      }
       
       //Costo productos
 
       const arrayCostoTotal = [];
-      // const almacenamientoProductosComprados = [];
 
-      elementosClaseComprado.forEach((element) => {
-        const productosCompradoId = productos.filter((elemento) => {
+      let productosCompradoId =[];
+      let resultadoCostoTotal="";
+      let indice = "";
+
+      elementosClaseComprado.forEach((element,index) => {
+        productosCompradoId = productos.filter((elemento) => {
           return elemento.nombre.toLowerCase().includes(element.getAttribute("id").toLowerCase());
         })
+
+        console.log(elementosClaseComprado);
         const costoTotal = productosCompradoId[0].precio * parseInt(element.value);
         arrayCostoTotal.push(costoTotal);
 
+        resultadoCostoTotal = arrayCostoTotal.reduce((a,b) => a+b);
+        totalPrecioSpan.innerHTML = `Total: S/ ${resultadoCostoTotal}`; 
+
+        indice = index;
         // almacenamientoProductosComprados.push(productosCompradoId[0]);
       })
 
-      const resultadoCostoTotal = arrayCostoTotal.reduce((a,b) => a+b);
-      totalPrecioSpan.innerHTML = `Total: S/ ${resultadoCostoTotal}`;
-      
-      // sessionStorage.setItem("productosComprados", JSON.stringify(almacenamientoProductosComprados));
+      const atributoInput = cantidadproductosInput[index].getAttribute("id");
+
+      const productosCompradoId2 = productos.filter((element) => {
+        return element.nombre.toLowerCase().includes(atributoInput.toLowerCase());
+      })
+
+      almacenar(indice, productosCompradoId2);
+
+
+       //Almacena los productos comprados en el localStorage    
+       
   }
 
   // ----add-products  y minus-products----

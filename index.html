@@ -14,10 +14,10 @@
 <body class="relative" id="bodyWeb">
     <header class="sticky top-0 z-10">
       <div class="navbar bg-base-100">
-        <div class="md:block hidden flex-1">
+        <div class="md:block hidden" style="flex: 3;">
           <a class="btn btn-ghost normal-case text-xl">Tienda Virtual</a>
         </div>
-        <div class="md:flex-none flex-1 justify-end gap-2">
+        <div class="md:flex-none justify-end gap-2" style="flex: 6;">
           <div class="form-control w-full">
             <input type="text" placeholder="Search" class="input input-bordered" id="buscadorInput" />
           </div>
@@ -133,11 +133,18 @@
         </article>
       </section>
 
-      <!-- Modal -->
-      <label for="my-modal-3" class="" id="loginModal"></label>
+      <!-- Modales -->
+      <!-- Abre el modal del login -->
+      <label for="my-modal-3" class="" id="loginModal"></label> 
+
+      <!-- Abre el modal de registrarse -->
       <label for="my-modal-4" class="" id="registrarseModal"></label>
 
+      <!-- Abre el modal de productos -->
+      <label for="my-modal-5" class="" id="pedidosModal"></label>
 
+
+      <!-- Modal de Login -->
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
       <div class="modal">
         <div class="modal-box relative flex">
@@ -160,6 +167,7 @@
         </div>
       </div>
 
+      <!-- Modal de Registro -->
       <input type="checkbox" id="my-modal-4" class="modal-toggle">
       <div class="modal">
         <div class="modal-box relative flex">
@@ -186,6 +194,18 @@
         </div>
         
       </div>     
+
+      <!-- Modal de Pedidos -->
+      <table>
+        <thead>
+          <tr>
+            <td>Producto</td>
+            <td>Precio</td>
+            <td>Cantidad</td>
+            <td>Total</td>
+          </tr>
+        </thead>
+      </table>
     </main>
 
     <!-- Spinner -->
