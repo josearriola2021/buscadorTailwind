@@ -34,7 +34,8 @@ const documentReady = () => {
     const cardsResultado = document.getElementById("cardsResultado");
     const buscadorInput = document.getElementById("buscadorInput");
     const categoriaList = document.getElementById("categoriaList");
-    const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");    
+    const menuCategoriaMobile = document.getElementById("menuCategoriaMobile");  
+    const inputItemCategoria = document.querySelectorAll(".input-itemCategoria");  
 
     //Carga el frontend del array productos
     readProductos(productos)
