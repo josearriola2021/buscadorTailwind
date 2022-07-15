@@ -597,6 +597,8 @@ const validacionLogin = () => {
   // Swal.fire("Sesión no iniciada");
 
   formLogin.onsubmit = function (e){
+
+    let resultadoUserObjeto = [];
     
     formLogin.classList.remove("submit-error"); //Para que pueda aparecer una alerta de sesion no iniciada
 
@@ -604,10 +606,15 @@ const validacionLogin = () => {
     users.forEach((element) => {
       formLogin.classList.add("submit");
       if (formLogin.classList.contains("submit")) {
-        const usersObjeto = JSON.parse(localStorage.getItem("users"));
-        const resultadoUserObjeto = usersObjeto.filter((element) => {
-          return element.email == inputEmail.value && element.password == inputPassword.value;
-        })
+        if (localStorage.getItem("users") != undefined) {
+          const usersObjeto = JSON.parse(localStorage.getItem("users"));
+          resultadoUserObjeto = usersObjeto.filter((element) => {
+            return element.email == inputEmail.value && element.password == inputPassword.value;
+          })
+        }else{
+          resultadoUserObjeto ="";
+        }       
+        
         if ((element.email == inputEmail.value && element.password == inputPassword.value) || resultadoUserObjeto != "") {
           bodyWeb.classList.add("inicio-sesion");
           //Aparece el spinner al cumplir la condición
@@ -633,7 +640,6 @@ const validacionLogin = () => {
           setTimeout(() => {
             if (resultadoUserObjeto.length > 0) {
               inicioSesionHeaderUsuario.innerHTML = resultadoUserObjeto[0].usuario;
-              console.log("Soy diferente de vacio");
             }else{
               inicioSesionHeaderUsuario.innerHTML = element.usuario;
             }
@@ -737,8 +743,14 @@ export const contadorProductos = () => {
   const indicadorItem = document.getElementById("indicadorItem");
   const cantidadProductosSpan = document.getElementById("cantidadProductosSpan");
   const totalPrecioSpan = document.getElementById("totalPrecioSpan");
+  const pedidosModalCarrito = document.getElementById("pedidosModalCarrito");
+  const pedidosModalSinProductos = document.getElementById("pedidosModalSinProductos");
 
   const funcionContarProductos = (element, index) => {
+
+    //Visualizar el carrito de compras y ocultar el mensaje por defecto
+    pedidosModalCarrito.classList.remove("hidden");
+    pedidosModalSinProductos.classList.add("hidden");
 
     let nombreProductoComprado = {
       nombre: "",

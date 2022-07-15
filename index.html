@@ -201,20 +201,22 @@
         <div class="modal-box relative flex">
           <label for="my-modal-5" class="btn btn-sm btn-circle absolute right-2 top-2" id="closeRegistro">✕</label>
           <div class="flex flex-col w-full items-center" id="pedidosModal">
-            <h2 style="margin-bottom: 20px;">Productos</h2>
-            <table class="">
-              <thead>
-                <tr>
-                  <td id="tableProducto">Producto</td>
-                  <td id="tablePrecio">Precio</td>
-                  <td id="tableCantidad">Cantidad</td>
-                  <td id="tableTotal">Total</td>
-                </tr>
-              <tbody class="tbody">
-                
-              </tbody>
-              </thead>
-            </table>
+            <div class="flex flex-col w-full items-center hidden" id="pedidosModalCarrito">
+              <h2 style="margin-bottom: 20px;">Productos</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <td id="tableProducto">Producto</td>
+                    <td id="tablePrecio">Precio</td>
+                    <td id="tableCantidad">Cantidad</td>
+                    <td id="tableTotal">Total</td>
+                  </tr>
+                <tbody class="tbody">
+                </tbody>
+                </thead>
+              </table>
+            </div>
+            <div class="" id="pedidosModalSinProductos">No se agregaron productos al carrito de compras</div>
           </div>
         </div>
         
