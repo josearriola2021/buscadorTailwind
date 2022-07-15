@@ -51,7 +51,7 @@
                 <span class="font-bold text-lg text-black" id="cantidadProductosSpan">0 productos</span>
                 <span class="text-info" id="totalPrecioSpan">Total: S/0</span>
                 <div class="card-actions">
-                  <button class="btn btn-primary btn-block">View cart</button>
+                  <button class="btn btn-primary btn-block" id="viewCart">View cart</button>
                 </div>
               </div>
             </div>
@@ -196,16 +196,33 @@
       </div>     
 
       <!-- Modal de Pedidos -->
-      <table>
-        <thead>
-          <tr>
-            <td>Producto</td>
-            <td>Precio</td>
-            <td>Cantidad</td>
-            <td>Total</td>
-          </tr>
-        </thead>
-      </table>
+      <input type="checkbox" id="my-modal-5" class="modal-toggle">
+      <div class="modal">
+        <div class="modal-box relative flex">
+          <label for="my-modal-5" class="btn btn-sm btn-circle absolute right-2 top-2" id="closeRegistro">✕</label>
+          <div class="flex flex-col w-full items-center" id="pedidosModal">
+            <h2 style="margin-bottom: 20px;">Productos</h2>
+            <table class="">
+              <thead>
+                <tr>
+                  <td id="tableProducto">Producto</td>
+                  <td id="tablePrecio">Precio</td>
+                  <td id="tableCantidad">Cantidad</td>
+                  <td id="tableTotal">Total</td>
+                </tr>
+              <tbody class="tbody">
+                
+              </tbody>
+              </thead>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+
+
+
+      
     </main>
 
     <!-- Spinner -->

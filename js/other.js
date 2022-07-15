@@ -772,15 +772,113 @@ export const contadorProductos = () => {
       }
 
       const almacenar = (indice, productosCompradoId) => {
+        
           nombreProductoComprado = {
             ...nombreProductoComprado,
             nombre: productosCompradoId[0].nombre,
             precio: productosCompradoId[0].precio,
-            cantidad: cantidadproductosInput[indice].value,
+            cantidad: cantidadproductosInput[index].value,
             total: (productosCompradoId[0].precio) * (cantidadproductosInput[index].value),
           }
+
+          if (cantidadproductosInput[index].value == 0) {
+
+            console.log("Hola mundo");
+
+            console.log(index);
+
+            almacenamientoProductosComprados.push(nombreProductoComprado);
+            localStorage.setItem("productosComprados", JSON.stringify(almacenamientoProductosComprados));
+
+            const objetoProductosComprados = JSON.parse(localStorage.getItem("productosComprados"));
+
+            console.log(objetoProductosComprados);
+            
+            const eliminaProductosDuplicados = (arr) => {
+              const productoMap = arr.map(producto => {
+                return [producto.nombre, producto]
+              });
+            
+              return [...new Map(productoMap).values()];
+            }
+  
+            const objetoLimpioProductosComprados = eliminaProductosDuplicados(objetoProductosComprados);
+
+            console.log(objetoLimpioProductosComprados);
+
+            const newObjetoLimpioProductosComprados = objetoLimpioProductosComprados.filter((element) => {
+              return element.cantidad != 0;
+            })
+
+
+            localStorage.removeItem("productosComprados");
+
+            localStorage.setItem("productosComprados", JSON.stringify(newObjetoLimpioProductosComprados));
+
+            const tBody = document.querySelector(".tbody");
+
+            tBody.innerHTML ="";
+          
+            newObjetoLimpioProductosComprados.forEach((element) => {
+            
+            const {nombre, precio, cantidad, total} = element;
+
+            tBody.innerHTML += 
+            `
+            <tr>
+              <td>${nombre}</td>
+              <td>${precio}</td>
+              <td>${cantidad}</td>
+              <td>${total}</td>
+            </tr>
+            `
+          })
+            
+          }else{
           almacenamientoProductosComprados.push(nombreProductoComprado);
           localStorage.setItem("productosComprados", JSON.stringify(almacenamientoProductosComprados));
+
+          const objetoProductosComprados = JSON.parse(localStorage.getItem("productosComprados"));
+          localStorage.removeItem("productosComprados");
+
+          //Se obtiene un array sin duplicados retornando el producto con la ultima cantidad seleccionada
+          const eliminaProductosDuplicados = (arr) => {
+            const productoMap = arr.map(producto => {
+              return [producto.nombre, producto]
+            });
+          
+            return [...new Map(productoMap).values()];
+          }
+
+          const objetoLimpioProductosComprados = eliminaProductosDuplicados(objetoProductosComprados);
+
+          const newObjetoLimpioProductosComprados = objetoLimpioProductosComprados.filter((element) => {
+            return element.cantidad != 0;
+          })
+
+          localStorage.setItem("productosComprados", JSON.stringify(newObjetoLimpioProductosComprados));
+
+          const tBody = document.querySelector(".tbody");
+
+          tBody.innerHTML ="";
+          
+          newObjetoLimpioProductosComprados.forEach((element) => {
+            
+
+            const {nombre, precio, cantidad, total} = element;
+
+            tBody.innerHTML += 
+            `
+            <tr>
+              <td>${nombre}</td>
+              <td>${precio}</td>
+              <td>${cantidad}</td>
+              <td>${total}</td>
+            </tr>
+            `
+          })
+          }
+          
       }
       
       //Costo productos
@@ -804,8 +902,9 @@ export const contadorProductos = () => {
         totalPrecioSpan.innerHTML = `Total: S/ ${resultadoCostoTotal}`; 
 
         indice = index;
-        // almacenamientoProductosComprados.push(productosCompradoId[0]);
       })
+
+        // almacenamientoProductosComprados.push(productosCompradoId[0]);
 
       const atributoInput = cantidadproductosInput[index].getAttribute("id");
 
@@ -814,9 +913,6 @@ export const contadorProductos = () => {
       })
 
       almacenar(indice, productosCompradoId2);
-
-
-       //Almacena los productos comprados en el localStorage    
        
   }
 
@@ -846,6 +942,8 @@ export const contadorProductos = () => {
     })
 
     deleteProduct[index].addEventListener("click", () => {
+      element.value = 0;
+      console.log("elemento eliminado");
       agregarButton[index].classList.remove("hidden");
       cantidadProductosAgregados[index].classList.add("hidden");
       funcionContarProductos(agregarButton[index],index);
@@ -882,6 +980,7 @@ export const contadorProductos = () => {
       }else{
         element.classList.add("hidden");
         cantidadProductosAgregados[index].classList.remove("hidden");
+        cantidadproductosInput[index].value = 1;
         funcionContarProductos(element, index);
       }     
 
@@ -889,6 +988,18 @@ export const contadorProductos = () => {
   }) 
   
 }
+
+const carritoCompras = () => {
+  const pedidosModal = document.getElementById("pedidosModal");
+  const viewCart = document.getElementById("viewCart");
+
+  viewCart.addEventListener("click", () => {
+    pedidosModal.click();
+  });
+}
+
+carritoCompras();
+
 
 export const inicioSesion = () => {
     inicioSesionHeader.onclick = function(){
